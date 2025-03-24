@@ -1,14 +1,22 @@
 package Modelo;
 
+import javax.persistence.*;
 import java.time.*;
+@Entity
 public class Alquiler {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private LocalDate fecha_inicio;
     private LocalDate fecha_fin;
+    @ManyToOne
+    @JoinColumn(name = "id_vehiculo")
     private Vehiculo vehiculo;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    public Alquiler(int id, LocalDate fecha_inicio, LocalDate fecha_fin, Vehiculo vehiculo, Cliente cliente) {
+    public Alquiler(long id, LocalDate fecha_inicio, LocalDate fecha_fin, Vehiculo vehiculo, Cliente cliente) {
         this.id = id;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
@@ -16,11 +24,11 @@ public class Alquiler {
         this.cliente = cliente;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

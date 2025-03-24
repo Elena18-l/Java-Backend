@@ -1,13 +1,18 @@
 package Modelo;
+import javax.persistence.*;
 
+@Entity
 public class Cliente {
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
   private String dni;
   private String nombre;
   private String apellido1;
   private String apellido2;
-
-    public Cliente(int id, String dni, String nombre, String apellido1, String apellido2) {
+    public Cliente() {}
+    public Cliente(long id, String dni, String nombre, String apellido1, String apellido2) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -15,11 +20,11 @@ public class Cliente {
         this.apellido2 = apellido2;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

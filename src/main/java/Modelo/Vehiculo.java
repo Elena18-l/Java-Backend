@@ -1,13 +1,18 @@
 package Modelo;
 
+import javax.persistence.*;
+
+@Entity
 public class Vehiculo {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String matricula;
     private String modelo;
     private String marca;
     private String foto;
 
-    public Vehiculo(int id, String matricula, String modelo, String marca, String foto) {
+    public Vehiculo(long id, String matricula, String modelo, String marca, String foto) {
         this.id = id;
         this.matricula = matricula;
         this.modelo = modelo;
@@ -15,11 +20,11 @@ public class Vehiculo {
         this.foto = foto;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
