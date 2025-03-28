@@ -2,7 +2,7 @@ package com.BackSpringBoys.Java_Backend.Modelo;
 import javax.persistence.*;
 
 @Entity
-public class Cliente {
+public class Cliente  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -59,6 +59,7 @@ public class Cliente {
     public void setApellido2(String apellido2) {
         this.apellido2 = apellido2;
     }
+
 
     @Override
     public String toString() {

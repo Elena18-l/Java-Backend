@@ -14,8 +14,6 @@ public class AlquilerControlador {
         return "greeting";
     }
 
-//    @GetMapping("/")
-//    public String home() {
-//        return "index";
-//    }
+
+
 }
