@@ -1,7 +1,7 @@
-package Repositorio;
-import Modelo.Alquiler;
-import Modelo.Cliente;
-import Modelo.Vehiculo;
+package com.BackSpringBoys.Java_Backend.Repositorio;
+import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
+import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

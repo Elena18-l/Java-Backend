@@ -1,8 +1,8 @@
-package Controlador;
+package com.BackSpringBoys.Java_Backend.Controlador;
 
-import Modelo.Cliente;
-import Repositorio.ClienteRepositorio;
-import Services.ClienteService;
+import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
+import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

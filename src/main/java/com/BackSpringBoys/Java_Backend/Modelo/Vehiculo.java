@@ -1,4 +1,4 @@
-package Modelo;
+package com.BackSpringBoys.Java_Backend.Modelo;
 
 import javax.persistence.*;
 
@@ -11,6 +11,9 @@ public class Vehiculo {
     private String modelo;
     private String marca;
     private String foto;
+
+    public Vehiculo() {
+    }
 
     public Vehiculo(long id, String matricula, String modelo, String marca, String foto) {
         this.id = id;

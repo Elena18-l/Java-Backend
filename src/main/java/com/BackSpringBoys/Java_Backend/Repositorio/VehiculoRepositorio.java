@@ -1,5 +1,5 @@
-package Repositorio;
-import Modelo.Vehiculo;
+package com.BackSpringBoys.Java_Backend.Repositorio;
+import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

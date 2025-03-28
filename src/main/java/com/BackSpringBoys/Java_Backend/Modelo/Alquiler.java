@@ -1,4 +1,4 @@
-package Modelo;
+package com.BackSpringBoys.Java_Backend.Modelo;
 
 import javax.persistence.*;
 import java.time.*;
@@ -17,12 +17,7 @@ public class Alquiler {
     private Cliente cliente;
     private double precio;
 
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public Alquiler() {
     }
 
     public Alquiler(long id, LocalDate fecha_inicio, LocalDate fecha_fin, Vehiculo vehiculo, Cliente cliente) {
@@ -31,6 +26,14 @@ public class Alquiler {
         this.fecha_fin = fecha_fin;
         this.vehiculo = vehiculo;
         this.cliente = cliente;
+        this.precio = precio;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

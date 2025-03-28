@@ -1,7 +1,7 @@
-package Services;
+package com.BackSpringBoys.Java_Backend.Services;
 
-import Modelo.Cliente;
-import Repositorio.ClienteRepositorio;
+import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

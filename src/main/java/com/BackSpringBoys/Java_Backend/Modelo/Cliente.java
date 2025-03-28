@@ -1,4 +1,4 @@
-package Modelo;
+package com.BackSpringBoys.Java_Backend.Modelo;
 import javax.persistence.*;
 
 @Entity
