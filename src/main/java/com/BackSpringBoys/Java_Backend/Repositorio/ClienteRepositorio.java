@@ -1,11 +1,11 @@
  package com.BackSpringBoys.Java_Backend.Repositorio;
  import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
- import org.springframework.data.jpa.repository.JpaRepository;
+ import org.springframework.data.repository.CrudRepository;
 
  import java.util.List;
  import java.util.Optional;
 
- public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
+ public interface ClienteRepositorio extends CrudRepository<Cliente, Long> {
 
 //     Cliente save(Cliente cliente);
 //     Optional<Cliente> findById(Long id);

@@ -1,7 +1,8 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.*;
+
 @Entity
 public class Alquiler {
     @Id

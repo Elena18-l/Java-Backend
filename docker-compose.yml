@@ -1,40 +1,46 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
-    container_name: mi-mysql
-    restart: always
+    container_name: bbdd-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 1234  # Aquí se establece la contraseña del root
+      MYSQL_ROOT_PASSWORD: AA1234
       MYSQL_DATABASE: alquiler_vehiculos
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql  # Se asegura que los datos persistan entre reinicios del contenedor
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+#      interval: 10s
+#      retries: 5
+#      start_period: 30s
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mi-app-spring
+    container_name: java-app-spring
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
     ports:
       - "8080:8080"
+    networks:
+      - backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3307/alquiler_vehiculos
-      SPRING_DATASOURCE_USERNAME: root  # Usuario root
-      SPRING_DATASOURCE_PASSWORD: 1234  # Contraseña del root
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alquiler_vehiculos
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: AA1234
+#      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+#      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+networks:
+    backend:
+      driver: bridge
 
 volumes:
-  mysql_data:  # Aquí defines el volumen persistente para MySQL
+  mysql_data:
+    driver: local
+

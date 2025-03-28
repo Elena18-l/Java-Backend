@@ -16,7 +16,7 @@
          this.clienteRepositorio = clienteRepositorio;
      }
 
-     public List<Cliente> obtenerTodosLosClientes() {
+     public Iterable<Cliente> obtenerTodosLosClientes() {
          return clienteRepositorio.findAll();
      }
 

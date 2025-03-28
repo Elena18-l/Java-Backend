@@ -1,17 +1,25 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
-import javax.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+//import javax.persistence.*;
 
 @Entity
 public class Cliente  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+    private long id;
 
-  private String dni;
-  private String nombre;
-  private String apellido1;
-  private String apellido2;
+    private String dni;
+    private String nombre;
+    private String apellido1;
+    private String apellido2;
+
     public Cliente() {}
+
     public Cliente(long id, String dni, String nombre, String apellido1, String apellido2) {
         this.id = id;
         this.dni = dni;
