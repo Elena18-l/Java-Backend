@@ -15,6 +15,15 @@ public class Alquiler {
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
+    private double precio;
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public Alquiler(long id, LocalDate fecha_inicio, LocalDate fecha_fin, Vehiculo vehiculo, Cliente cliente) {
         this.id = id;
@@ -22,6 +31,7 @@ public class Alquiler {
         this.fecha_fin = fecha_fin;
         this.vehiculo = vehiculo;
         this.cliente = cliente;
+        this.precio = precio;
     }
 
     public long getId() {
@@ -63,7 +73,6 @@ public class Alquiler {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
     @Override
     public String toString() {
         return "Alquiler{" +
@@ -72,6 +81,7 @@ public class Alquiler {
                 ", fecha_fin=" + fecha_fin +
                 ", vehiculo=" + vehiculo +
                 ", cliente=" + cliente +
+                ", precio=" + precio +
                 '}';
     }
 }
