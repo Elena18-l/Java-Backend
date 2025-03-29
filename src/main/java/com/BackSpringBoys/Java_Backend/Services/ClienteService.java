@@ -1,16 +1,16 @@
- package com.BackSpringBoys.Java_Backend.Services;
+package com.BackSpringBoys.Java_Backend.Services;
 
- import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
- import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
- import org.springframework.stereotype.Service;
+import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
+import org.springframework.stereotype.Service;
 
- import java.util.List;
- import java.util.Optional;
 
- @Service
- public class ClienteService {
+import java.util.Optional;
 
-     private ClienteRepositorio clienteRepositorio;
+@Service
+public class ClienteService {
+
+private ClienteRepositorio clienteRepositorio;
 
      public ClienteService(ClienteRepositorio clienteRepositorio) {
          this.clienteRepositorio = clienteRepositorio;
@@ -31,4 +31,4 @@
      public void eliminarCliente(Long id) {
          clienteRepositorio.deleteById(id);
      }
- }
+}

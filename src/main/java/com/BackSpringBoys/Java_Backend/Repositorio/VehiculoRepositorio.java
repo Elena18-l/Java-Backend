@@ -12,6 +12,6 @@
 //     void deleteById (Long id);
 //     void delete (Vehiculo vehiculo);
 //     long count();
-     List <Vehiculo> findByMatricula (String matricula);
-
+     Optional <Vehiculo> findByMatricula (String matricula);
+     Void deleteByMatricula (String matricula);
  }
