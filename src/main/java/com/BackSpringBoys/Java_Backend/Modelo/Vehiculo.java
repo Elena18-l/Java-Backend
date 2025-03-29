@@ -1,9 +1,6 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -11,10 +8,20 @@ public class Vehiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, unique = true, length = 7)
     private String matricula;
-    private String modelo;
+
+    @Column(nullable = false, length = 50)
     private String marca;
+
+    @Column(nullable = false, length = 50)
+    private String modelo;
+
+    //Esto es un str con la URL de la foto? o un blob con la imagen?
+    @Column()
     private String foto;
+
 
     public Vehiculo() {
     }
@@ -25,6 +32,19 @@ public class Vehiculo {
         this.modelo = modelo;
         this.marca = marca;
         this.foto = foto;
+    }
+
+    public Vehiculo(String matricula, String modelo, String marca, String foto) {
+        this.matricula = matricula;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.foto = foto;
+    }
+
+    public Vehiculo(String matricula, String modelo, String marca) {
+        this.matricula = matricula;
+        this.modelo = modelo;
+        this.marca = marca;
     }
 
     public long getId() {
@@ -69,12 +89,6 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return "Vehiculo{" +
-                "id=" + id +
-                ", matricula='" + matricula + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", marca='" + marca + '\'' +
-                ", foto='" + foto + '\'' +
-                '}';
+        return "Vehiculo " + id + ", Matricula: " + matricula + ", Modelo: " + modelo + ", Marca: '" + marca + ", Foto: " + foto + ".";
     }
 }

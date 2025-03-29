@@ -1,11 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
-
-//import javax.persistence.*;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Cliente  {
@@ -13,19 +9,42 @@ public class Cliente  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, unique = true, length = 9)
     private String dni;
+    @Column(nullable = false, length = 50)
     private String nombre;
+    @Column(nullable = false, length = 50)
     private String apellido1;
+    @Column(length = 50)
     private String apellido2;
+    @Column(name = "fecha_nacimiento", nullable = false)
+    private LocalDate fechaNacimiento;
+
 
     public Cliente() {}
 
-    public Cliente(long id, String dni, String nombre, String apellido1, String apellido2) {
+    public Cliente(long id, String dni, String nombre, String apellido1, String apellido2, LocalDate fechaNacimiento) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Cliente(String dni, String nombre, String apellido1, String apellido2, LocalDate fechaNacimiento) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Cliente(String dni, String nombre, String apellido1, LocalDate fechaNacimiento) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public long getId() {
@@ -68,15 +87,17 @@ public class Cliente  {
         this.apellido2 = apellido2;
     }
 
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", dni='" + dni + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellido1='" + apellido1 + '\'' +
-                ", apellido2='" + apellido2 + '\'' +
-                '}';
+        return "Cliente " + id + "- DNI:'" + dni + '\'' + ", Nombre Completo:'" + nombre + ' ' + apellido1 + ' ' + apellido2 + ".\n";
     }
 }
