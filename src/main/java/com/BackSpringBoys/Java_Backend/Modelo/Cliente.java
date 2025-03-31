@@ -1,24 +1,41 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 @Entity
 public class Cliente  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false, unique = true, length = 9)
+    @NotBlank(message = "El DNI es obligatorio")
+    @Pattern(regexp = "^[0-9]{8}[A-Z]$", message = "El DNI debe tener 8 números seguidos de una letra mayúscula")
     private String dni;
+
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
     private String nombre;
+
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "El primer apellido es obligatorio")
+    @Size(min = 2, max = 50, message = "El primer apellido debe tener entre 2 y 50 caracteres")
     private String apellido1;
+
     @Column(length = 50)
+    @Size(max = 50, message = "El segundo apellido no puede superar los 50 caracteres")
     private String apellido2;
+
     @Column(name = "fecha_nacimiento", nullable = false)
+    @NotNull(message = "La fecha de nacimiento es obligatoria")
+    @Past(message = "La fecha de nacimiento debe ser en el pasado")
     private LocalDate fechaNacimiento;
+
 
 
     public Cliente() {}
