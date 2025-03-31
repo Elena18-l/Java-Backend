@@ -2,8 +2,10 @@ package com.BackSpringBoys.Java_Backend.Controlador;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -30,10 +32,15 @@ public class ClienteControlador {
     }
 
     @PostMapping("/guardar")
-    public String guardarCliente(@ModelAttribute Cliente cliente) {
+    public String guardarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/clientes/agregarCliente";
+        }
+
         clienteService.guardarCliente(cliente);
         return "redirect:/clientes";
     }
+
 
     @GetMapping("/eliminar/{id}")
     public String eliminarCliente(@PathVariable("id") Long id) {
