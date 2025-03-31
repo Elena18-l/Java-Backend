@@ -10,25 +10,22 @@ import java.util.Optional;
 @Service
 public class ClienteService {
 
-private ClienteRepositorio clienteRepositorio;
-
-     public ClienteService(ClienteRepositorio clienteRepositorio) {
+    private ClienteRepositorio clienteRepositorio;
+    public ClienteService(ClienteRepositorio clienteRepositorio) {
          this.clienteRepositorio = clienteRepositorio;
      }
 
-     public Iterable<Cliente> obtenerTodosLosClientes() {
+    public Iterable<Cliente> obtenerTodosLosClientes() {
          return clienteRepositorio.findAll();
      }
 
-     public Optional<Cliente> obtenerClientePorId(Long id) {
+    public Optional<Cliente> obtenerClientePorId(Long id) {
          return clienteRepositorio.findById(id);
      }
 
-     public Cliente guardarCliente(Cliente cliente) {
-         return clienteRepositorio.save(cliente);
-     }
+    public Cliente guardarCliente(Cliente cliente) { return clienteRepositorio.save(cliente); }
 
-     public void eliminarCliente(Long id) {
+    public void eliminarCliente(Long id) {
          clienteRepositorio.deleteById(id);
      }
 }
