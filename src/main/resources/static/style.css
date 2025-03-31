@@ -8,12 +8,23 @@
     --light: #F1F1F1;      /* blanco */
     --accent: #AD92C2;     /* lila */
 }
+
 body{
-    background-color: light;
+    background-color: var(--light);
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+header {
+  background-color: var(--main);
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 button{
