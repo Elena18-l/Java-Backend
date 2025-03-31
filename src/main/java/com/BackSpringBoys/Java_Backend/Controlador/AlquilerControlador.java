@@ -1,6 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Controlador;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
+import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.AlquilerService;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
@@ -51,5 +52,17 @@ public class AlquilerControlador {
         return "redirect:/alquiler";
     }
 
+    @GetMapping("/addPrueba")
+    public void addDatos(){
+        Vehiculo veh1 = new Vehiculo();
+        Vehiculo veh2 = new Vehiculo();
+        Vehiculo veh3 = new Vehiculo();
+        Vehiculo veh4 = new Vehiculo();
+        Vehiculo veh5 = new Vehiculo();
+        Vehiculo veh6 = new Vehiculo();
+
+
+        Alquiler alquiler = new Alquiler();
+    }
 
 }
