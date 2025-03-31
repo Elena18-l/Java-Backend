@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Alquiler</title>
+</head>
+<body>
+<h1>Agregar Nuevo alquielr</h1>
+
+<form th:action="@{/alquiler/guardar}" th:object="${alquiler}" method="post">
+    <label for="vehiculo">Matrícula:</label>
+    <select id="vehiculo" name="vehiculo" th:field="*{vehiculo}" required>
+        <option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.id}" th:text="${vehiculo.matricula}"></option>
+    </select>
+    <br>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<br>
+<a href="/vehiculo">Volver a la lista de Vehículos</a>
+</body>
+</html>

@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Error - Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oops! Error 404</title>
+    <link rel="stylesheet" href="/errorStyle.css">
 </head>
-<body style="background-color: chartreuse">
-<h1>Error</h1>
-<p th:text="${errorMessage}"></p>
-<a href="/">Go to Home</a>
+<body>
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-image">
+            <img src="https://imgs.search.brave.com/cgk9xzthdkz1xsFG0vWIp3UF6mNyq8ND7q-NyZdq6Ps/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxOS8x/MC8yOS8yMC81Mi9y/b2JvdC00NTg4MTMy/XzEyODAuanBn" alt="Confused robot" class="robot-img">
+        </div>
+        <h1 class="error-title">Oops! Something went wrong!</h1>
+        <p class="error-message">It seems we've lost our way... But don't worry, we'll get back on track.</p>
+        <button onclick="window.location.href='/'" class="retry-button">Try Again</button>
+    </div>
+</div>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class ClienteControlador {
     @PostMapping("/guardar")
     public String guardarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "/clientes/agregarCliente";
+            return "clientes/agregarCliente";
         }
 
         clienteService.guardarCliente(cliente);
