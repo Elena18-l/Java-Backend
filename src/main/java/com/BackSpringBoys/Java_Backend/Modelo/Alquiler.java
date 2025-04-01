@@ -37,6 +37,14 @@ public class Alquiler {
         this.precio = precio;
     }
 
+    public Alquiler(LocalDate fechaInicio, LocalDate fechaFin, Vehiculo vehiculo, Cliente cliente, double precio) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.vehiculo = vehiculo;
+        this.cliente = cliente;
+        this.precio = precio;
+    }
+
     public double getPrecio() {
         return precio;
     }

@@ -1,23 +1,27 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Inicio</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
-<br>
-    <h1>Graphic Design Is My Passion</h1>
-    <div>
+<header>
+    <h1>Alquiler de vehículos</h1>
+</header>
+
+    <div class="main">
         <a href="/clientes">
             <button>Ver Lista de Clientes</button>
         </a>
         <a href="/vehiculo">
             <button>Ver Lista de Vehículos</button>
         </a>
-        <a href="/alquileres">
+        <a href="/alquiler">
             <button>Ver Lista de alquileres</button>
         </a>
     </div>
+    <a href="/alquiler/addPrueba"><button>Añadir información de prueba</button></a>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista alquileres</title>
+</head>
+<body>
+    <div>
+        <h1>Lista de Alquileres</h1>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Matricula</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="alquiler : ${alquileres}">
+                <td th:text="${alquiler.id}"></td>
+                <td th:text="${alquiler.vehiculo.matricula}"></td>
+                <td th:text="${alquiler.cliente.nombre}"></td>
+                <td th:text="${alquiler.precio}"></td>
+                <td>
+                    <a th:href="@{/alquileres/eliminar/{id}(id=${alquiler.id})}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="/alquiler/nuevo">Agregar Nuevo Alquiler</a>
+</body>
+</html>
