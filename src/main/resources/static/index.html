@@ -4,7 +4,9 @@
     <title>Inicio</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -32,7 +34,12 @@
             <img src="/img/logo.png" alt="Logo coche" />
         </div>
         <form class="login-form" action="/login" method="post">
-            <h2>Alquiler de Vehículos</h2>
+            <h4>
+                <hr style="width: 20%; display: inline-block; margin: 0 1px;">
+                Alquiler de Vehículos
+                <hr style="width: 20%; display: inline-block; margin: 0 1px;">
+            </h4>
+
             <input type="text" name="username" placeholder="Usuario">
             <input type="password" name="password" placeholder="Contraseña">
             <button type="submit">Iniciar sesión</button>

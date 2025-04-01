@@ -1,5 +1,5 @@
 *{
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 :root {
     --main: #022859;       /* Azul principal */
@@ -137,10 +137,10 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: white;
+  background-color: transparent;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+
   width: 300px;
   text-align: center;
 }
@@ -157,10 +157,9 @@ footer {
 }
 
 .menu {
-    background: white;
+    background: transparent;
     padding: 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
     display: flex;
     justify-content: center;
     align-items: center;
