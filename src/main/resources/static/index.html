@@ -4,14 +4,43 @@
     <title>Inicio</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<header>
-    <h1>Alquiler de vehículos</h1>
-</header>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+        <div class="logo">Alquiler<br>de vehículos</div>
+        <nav>
+            <a href="/vehiculo" class="nav-link">Vehículo</a>
+            <a href="/clientes" class="nav-link">Cliente</a>
+            <a href="/alquiler" class="nav-link">Alquiler</a>
+        </nav>
+            </div>
 
-    <div class="main">
+            <div class="header-right">
+                <span>User</span>
+                <button class="logout">Cerrar sesión</button>
+            </div>
+        </div>
+    </header>
+
+<main>
+    <div class="login-wrapper">
+        <div class="car-image">
+            <img src="/img/logo.png" alt="Logo coche" />
+        </div>
+        <form class="login-form" action="/login" method="post">
+            <h2>Alquiler de Vehículos</h2>
+            <input type="text" name="username" placeholder="Usuario">
+            <input type="password" name="password" placeholder="Contraseña">
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+<br>
+    <div class="menu"> <a href="/alquiler/addPrueba"><button>Añadir información de prueba</button></a></div>
+<!--   <section class="menu">
         <a href="/clientes">
             <button>Ver Lista de Clientes</button>
         </a>
@@ -21,7 +50,11 @@
         <a href="/alquiler">
             <button>Ver Lista de alquileres</button>
         </a>
-    </div>
-    <a href="/alquiler/addPrueba"><button>Añadir información de prueba</button></a>
+    </section> -->
+</main>
+
+    <footer>
+        <p>BackSpringBoys - 2025 | <a href="https://fp.uoc.fje.edu/es/estudios">UOC</a></p>
+    </footer>
 </body>
 </html>

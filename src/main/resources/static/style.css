@@ -1,5 +1,5 @@
 *{
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 :root {
     --main: #022859;       /* Azul principal */
@@ -9,33 +9,199 @@
     --accent: #AD92C2;     /* lila */
 }
 
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body{
+    margin: 0;
+    padding: 0;
     background-color: var(--light);
-    font-family: sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menu button {
+  width: 100%;
+  max-width: 240px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    border: 2px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
 }
 
 header {
-  background-color: var(--main);
   color: white;
-  padding: 1rem;
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid white;
+}
+
+.logout {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #9d7fb8;
+}
+
+footer {
+  background-color: #A6A5A4;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.car-image {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+}
+
+.car-image img {
+  max-width: 500px;
+  height: auto;
+}
+
+.login-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.login-form input {
+  padding: 0.75rem;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.login-form h2 {
+  margin-bottom: 1rem;
+}
+
+.menu {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 2rem;
+  }
+
+.header-container {
+  background-color: var(--main);
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
 }
 
-button{
-    background-color: cornflowerblue;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .header-left,
+  .header-right {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
 }
