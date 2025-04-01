@@ -1,12 +1,13 @@
-*{
+* {
     font-family: 'Roboto', sans-serif;
 }
+
 :root {
     --main: #022859;       /* Azul principal */
-    --secondary: #A6A5A4;  /* gris claro */
+    --secondary: #A6A5A4;  /* Gris claro */
     --dark: #404040;       /* Gris oscuro */
-    --light: #F1F1F1;      /* blanco */
-    --accent: #AD92C2;     /* lila */
+    --light: #F1F1F1;      /* Blanco */
+    --accent: #AD92C2;     /* Lila */
 }
 
 html, body {
@@ -14,7 +15,7 @@ html, body {
     overflow-x: hidden;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     background-color: var(--light);
@@ -35,9 +36,9 @@ main {
 }
 
 .menu button {
-  width: 100%;
-  max-width: 240px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 240px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
 }
 
 .logo {
@@ -50,7 +51,12 @@ main {
 }
 
 header {
-  color: white;
+    background-color: var(--main);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav {
@@ -59,10 +65,10 @@ nav {
 }
 
 nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 1rem;
-  font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 1rem;
 }
 
 .nav-link {
@@ -77,48 +83,125 @@ nav a {
 }
 
 .logout {
-  background-color: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 button {
-  background-color: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #9d7fb8;
 }
 
-footer {
-  background-color: #A6A5A4;
-  color: white;
-  text-align: center;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-  width: 100%;
+/* Estilos para el título con líneas a los lados */
+.franja {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 200;
+    margin:0;
+    background-color: var(--dark);
+    padding: 10px;
+    position: relative;
 }
 
+
+
+footer {
+    background-color: var(--secondary);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+/* Estilos para la tabla */
+.vehiculo-table {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.vehiculo-table th,
+.vehiculo-table td {
+    padding: 12px;
+    border: 1px solid var(--secondary);
+    text-align: center;
+}
+
+.vehiculo-table th {
+    background-color: var(--main);
+    color: white;
+}
+
+/* Estilos para imágenes de los vehículos */
+.foto-coche {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Estilos para los iconos de acciones */
+.opciones .icono {
+    margin: 0 5px;
+    color: var(--main);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.opciones .icono:hover {
+    color: var(--accent);
+}
+
+/* Botón de agregar vehículo */
+.button-container {
+    text-align: center;
+    margin: 20px;
+}
+
+.create-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.create-button:hover {
+    background-color: #9d7fb8;
+}
+
+/* Estilos para la imagen del login */
 .car-image {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .car-image img {
-  max-width: 500px;
-  height: auto;
+    max-width: 500px;
+    height: auto;
 }
 
 .login-wrapper {
@@ -134,26 +217,25 @@ footer {
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: transparent;
-  padding: 2rem;
-  border-radius: 1rem;
-
-  width: 300px;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: transparent;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 300px;
+    text-align: center;
 }
 
 .login-form input {
-  padding: 0.75rem;
-  border: 1px solid var(--secondary);
-  border-radius: 6px;
-  font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--secondary);
+    border-radius: 6px;
+    font-size: 1rem;
 }
 
 .login-form h2 {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .menu {
@@ -166,41 +248,41 @@ footer {
     width: 100%;
     max-width: 300px;
     margin-top: 2rem;
-  }
+}
 
 .header-container {
-  background-color: var(--main);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  box-sizing: border-box;
+    background-color: var(--main);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
 }
 
 .header-left {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .header-right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+/* Responsivo */
 @media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
 
-  .header-left,
-  .header-right {
-    justify-content: space-between;
-    width: 100%;
-  }
-}
+    .header-left,
+    .header-right {
+        justify-content: space-between;
+        width: 100%;
+    }
 }

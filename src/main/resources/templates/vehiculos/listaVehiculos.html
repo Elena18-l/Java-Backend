@@ -4,35 +4,69 @@
     <title>Lista de Vehículos</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Lista de Vehículos</h1>
+<header>
+    <div class="header-container">
+        <div class="header-left">
+            <div class="logo">Alquiler<br>de Coches</div>
+            <nav>
+                <a href="/vehiculo" class="nav-link">Coche</a>
+                <a href="/clientes" class="nav-link">Cliente</a>
+                <a href="/alquiler" class="nav-link">Alquiler</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <span>User</span>
+            <button class="logout">Log out</button>
+        </div>
+    </div>
+</header>
 
-<table border="1">
+<h2 class="franja">Lista de Vehículos</h2>
+
+<!-- Botón de crear coche -->
+<div class="button-container">
+    <a href="/vehiculo/nuevo" class="create-button">Añadir vehículo</a>
+</div>
+
+<table class="vehiculo-table">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Matrícula</th>
         <th>Marca</th>
         <th>Modelo</th>
         <th>Foto</th>
+        <th>Opciones</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="vehiculo : ${vehiculos}">
-        <td th:text="${vehiculo.id}"></td>
         <td th:text="${vehiculo.matricula}"></td>
         <td th:text="${vehiculo.marca}"></td>
         <td th:text="${vehiculo.modelo}"></td>
-        <td th:text="${vehiculo.foto}"></td>
         <td>
-            <a th:href="@{/vehiculo/eliminar/{id}(id=${vehiculo.id})}">Eliminar</a>
+            <img th:src="${vehiculo.foto}" alt="Foto del vehículo" class="foto-coche"/>
+        </td>
+        <td class="opciones">
+            <a th:href="@{/vehiculo/ver/{id}(id=${vehiculo.id})}" class="icono ver" title="Ver">
+                👁️
+            </a>
+            <a th:href="@{/vehiculo/editar/{id}(id=${vehiculo.id})}" class="icono editar" title="Editar">
+                ✏️
+            </a>
+            <a th:href="@{/vehiculo/eliminar/{id}(id=${vehiculo.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                ❌
+            </a>
         </td>
     </tr>
     </tbody>
 </table>
 
-<br>
-<a href="/vehiculo/nuevo">Agregar Nuevo Vehículo</a>
+<footer>
+    <p>BackSpringBoys - 2025 - uoc.edu</p>
+</footer>
+
 </body>
 </html>
