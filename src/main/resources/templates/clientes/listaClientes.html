@@ -4,11 +4,34 @@
     <title>Lista de Clientes</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Lista de Clientes</h1>
+<header>
+    <div class="header-container">
+        <div class="header-left">
+            <div class="logo">Alquiler<br>de Coches</div>
+            <nav>
+                <a href="/vehiculo" class="nav-link">Coche</a>
+                <a href="/clientes" class="nav-link">Cliente</a>
+                <a href="/alquiler" class="nav-link">Alquiler</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <span>User</span>
+            <button class="logout">Log out</button>
+        </div>
+    </div>
+</header>
 
-<table border="1">
+<h2 class="franja">Lista de Clientes</h2>
+
+<!-- Botón de crear cliente -->
+<div class="button-container">
+    <a href="/cliente/nuevo" class="create-button">Añadir cliente</a>
+</div>
+
+<table class ="cliente-table">
     <thead>
     <tr>
         <th>ID</th>
@@ -34,6 +57,5 @@
 </table>
 
 <br>
-<a href="/clientes/nuevo">Agregar Nuevo Cliente</a>
 </body>
 </html>

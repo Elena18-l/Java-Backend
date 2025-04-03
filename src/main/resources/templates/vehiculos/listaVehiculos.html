@@ -37,7 +37,6 @@
         <th>Matrícula</th>
         <th>Marca</th>
         <th>Modelo</th>
-        <th>Foto</th>
         <th>Opciones</th>
     </tr>
     </thead>
@@ -46,9 +45,7 @@
         <td th:text="${vehiculo.matricula}"></td>
         <td th:text="${vehiculo.marca}"></td>
         <td th:text="${vehiculo.modelo}"></td>
-        <td>
-            <img th:src="${vehiculo.foto}" alt="Foto del vehículo" class="foto-coche"/>
-        </td>
+
         <td class="opciones">
             <a th:href="@{/vehiculo/ver/{id}(id=${vehiculo.id})}" class="icono ver" title="Ver">
                 👁️
