@@ -1,13 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Lista alquileres</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div>
-        <h1>Lista de Alquileres</h1>
-        <table border="1">
+<header>
+    <div class="header-container">
+        <div class="header-left">
+            <div class="logo">Alquiler<br>de Vehículos</div>
+            <nav>
+                <a href="/vehiculo" class="nav-link">Vehículo</a>
+                <a href="/clientes" class="nav-link">Cliente</a>
+                <a href="/alquiler" class="nav-link">Alquiler</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <span>User</span>
+            <button class="logout">Log out</button>
+        </div>
+    </div>
+</header>
+
+        <h2 class="franja">Lista de Alquiler "</h2>
+        <div class="button-container">
+        <a href="/alquiler/nuevo" class="create-button">Agregar Nuevo Alquiler</a>
+        </div>
+        <table class="table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -23,13 +44,20 @@
                 <td th:text="${alquiler.vehiculo.matricula}"></td>
                 <td th:text="${alquiler.cliente.nombre}"></td>
                 <td th:text="${alquiler.precio}"></td>
-                <td>
-                    <a th:href="@{/alquileres/eliminar/{id}(id=${alquiler.id})}">Eliminar</a>
+                <td class="opciones">
+                    <a th:href="@{/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">
+                        ✏️
+                    </a>
+                    <a th:href="@{/alquiler/eliminar/{id}(id=${alquiler.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                        ❌
+                    </a>
                 </td>
             </tr>
             </tbody>
         </table>
-    </div>
-    <a href="/alquiler/nuevo">Agregar Nuevo Alquiler</a>
+<footer>
+    <p>BackSpringBoys - 2025 - uoc.edu</p>
+</footer>
+
 </body>
 </html>

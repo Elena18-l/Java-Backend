@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-<h1>Agregar Nuevo Vehículo</h1>
+<h2 class="franja">Agregar Nuevo Vehículo</h2>
 
-<form th:action="@{/vehiculo/guardar}" th:object="${vehiculo}" method="post">
+<form class=" login-form" th:action="@{/vehiculo/guardar}" th:object="${vehiculo}" method="post">
     <label for="matricula">Matrícula:</label>
     <input type="text" id="matricula" name="matricula" th:field="*{matricula}" required>
     <br>
@@ -29,6 +29,6 @@
 </form>
 
 <br>
-<a href="/vehiculo">Volver a la lista de Vehículos</a>
+<a href="/vehiculo" class="create-button">Volver a la lista de Vehículos</a>
 </body>
 </html>

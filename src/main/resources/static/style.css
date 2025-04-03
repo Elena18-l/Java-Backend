@@ -107,6 +107,12 @@ button:hover {
     background-color: #9d7fb8;
 }
 
+.button-container {
+    text-align: center;
+    margin: 20px;
+}
+
+
 /* Estilos para el título con líneas a los lados */
 .franja {
     display: flex;
@@ -132,7 +138,7 @@ footer {
 }
 
 /* Estilos para la tabla */
-.vehiculo-table {
+.table {
     width: 90%;
     margin: auto;
     border-collapse: collapse;
@@ -140,22 +146,16 @@ footer {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.vehiculo-table th,
-.vehiculo-table td {
+.table th,
+.table td {
     padding: 12px;
     border: 1px solid var(--secondary);
     text-align: center;
 }
 
-.vehiculo-table th {
+.table th {
     background-color: var(--main);
     color: white;
-}
-
-/* Estilos para imágenes de los vehículos */
-.foto-coche {
-    max-width: 100px;
-    height: auto;
 }
 
 /* Estilos para los iconos de acciones */
@@ -192,17 +192,7 @@ footer {
     background-color: #9d7fb8;
 }
 
-/* Estilos para la imagen del login */
-.car-image {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
 
-.car-image img {
-    max-width: 500px;
-    height: auto;
-}
 
 .login-wrapper {
     display: flex;

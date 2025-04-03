@@ -10,9 +10,9 @@
 <header>
     <div class="header-container">
         <div class="header-left">
-            <div class="logo">Alquiler<br>de Coches</div>
+            <div class="logo">Alquiler<br>de Vehículos</div>
             <nav>
-                <a href="/vehiculo" class="nav-link">Coche</a>
+                <a href="/vehiculo" class="nav-link">Vehículo</a>
                 <a href="/clientes" class="nav-link">Cliente</a>
                 <a href="/alquiler" class="nav-link">Alquiler</a>
             </nav>
@@ -26,12 +26,12 @@
 
 <h2 class="franja">Lista de Vehículos</h2>
 
-<!-- Botón de crear coche -->
+<!-- Botón de crear vehículo -->
 <div class="button-container">
     <a href="/vehiculo/nuevo" class="create-button">Añadir vehículo</a>
 </div>
 
-<table class="vehiculo-table">
+<table class="table">
     <thead>
     <tr>
         <th>Matrícula</th>
@@ -47,9 +47,6 @@
         <td th:text="${vehiculo.modelo}"></td>
 
         <td class="opciones">
-            <a th:href="@{/vehiculo/ver/{id}(id=${vehiculo.id})}" class="icono ver" title="Ver">
-                👁️
-            </a>
             <a th:href="@{/vehiculo/editar/{id}(id=${vehiculo.id})}" class="icono editar" title="Editar">
                 ✏️
             </a>
