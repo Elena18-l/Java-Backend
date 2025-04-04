@@ -39,4 +39,26 @@ public class VehiculoControlador {
         vehiculoService.eliminarVehiculo(id);
         return "redirect:/vehiculo";
     }
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditarVehiculo(@PathVariable Long id, Model model) {
+        Optional<Vehiculo> optionalVehiculo = vehiculoService.obtenerVehiculoPorId(id);
+        if (optionalVehiculo.isPresent()) {
+            model.addAttribute("vehiculo", optionalVehiculo.get());
+            return "vehiculos/editVehiculo";
+        } else {
+            // Redirigir a la lista o mostrar un error si no se encuentra el vehículo
+            return "redirect:/vehiculo";
+        }
+    }
+
+
+
+    @PostMapping("/actualizar")
+    public String actualizarVehiculo(@ModelAttribute Vehiculo vehiculo) {
+        vehiculoService.guardarVehiculo(vehiculo); // reutilizar el mismo método de guardar
+        return "redirect:/vehiculo";
+    }
+
+
+
 }

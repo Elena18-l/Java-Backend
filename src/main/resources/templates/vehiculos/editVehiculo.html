@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Vehículo</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>Editar Vehículo</h2>
+<form th:action="@{/vehiculo/actualizar}" th:object="${vehiculo}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Matrícula:</label>
+    <input type="text" th:field="*{matricula}" required/><br>
+
+    <label>Marca:</label>
+    <input type="text" th:field="*{marca}" required/><br>
+
+    <label>Modelo:</label>
+    <input type="text" th:field="*{modelo}" required/><br>
+
+    <label>Foto (URL):</label>
+    <input type="text" th:field="*{foto}" /><br>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+<a th:href="@{/vehiculo}">Volver</a>
+</body>
+</html>
