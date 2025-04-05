@@ -44,10 +44,33 @@ main {
 .logo {
     font-size: 1.3rem;
     font-weight: bold;
-    color: white;
     border: 2px solid white;
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.logo-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    transition: color 0.3s ease-in-out;
+}
+
+.logo-link:visited {
+    color: white;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    border-color: #d0aaff;
+    background-color: rgba(208, 170, 255, 0.1);
+}
+
+.logo-link:hover {
+    color: #d0aaff;
+    text-decoration: underline;
 }
 
 header {
