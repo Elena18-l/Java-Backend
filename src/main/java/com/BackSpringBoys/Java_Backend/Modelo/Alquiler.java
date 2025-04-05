@@ -2,21 +2,25 @@ package com.BackSpringBoys.Java_Backend.Modelo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.*;
+import java.time.LocalDate;
 
 @Entity
 public class Alquiler {
 
     @NotNull(message = "La fecha de inicio es obligatoria")
     @FutureOrPresent(message = "La fecha de inicio debe ser hoy o en el futuro")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "La fecha de fin es obligatoria")
     @Future(message = "La fecha de fin debe ser en el futuro")
     @Column(name = "fecha_fin", nullable = false)
     private LocalDate fechaFin;
+
 
     @ManyToOne
     @JoinColumn(name = "id_vehiculo")

@@ -29,9 +29,20 @@ public class AlquilerControlador {
         this.clienteService = clienteService;
     }
 
+    /* debug alquiler
     @GetMapping
     public String listarAlquiler(Model model) {
         model.addAttribute("alquileres", alquilerService.obtenerTodosLosAlquileres());
+        return "alquiler/listaAlquiler";
+    } */
+
+    @GetMapping
+    public String listarAlquiler(Model model) {
+        System.out.println("Intentando cargar lista de alquileres...");
+        var alquileres = alquilerService.obtenerTodosLosAlquileres();
+        alquileres.forEach(a -> System.out.println(a)); // Esto imprime cada alquiler
+
+        model.addAttribute("alquileres", alquileres);
         return "alquiler/listaAlquiler";
     }
 

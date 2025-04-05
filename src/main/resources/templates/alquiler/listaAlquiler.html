@@ -32,24 +32,25 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Matricula</th>
-                <th>Nombre</th>
-                <th>Precio</th>
+                <th>Vehículo</th>
+                <th>Cliente</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Precio (€)</th>
                 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="alquiler : ${alquileres}">
                 <td th:text="${alquiler.id}"></td>
-                <td th:text="${alquiler.vehiculo.matricula}"></td>
-                <td th:text="${alquiler.cliente.nombre}"></td>
-                <td th:text="${alquiler.precio}"></td>
+                <td th:text="${alquiler.vehiculo != null ? alquiler.vehiculo.marca + ' ' + alquiler.vehiculo.modelo + ' (' + alquiler.vehiculo.matricula + ')' : 'Vehículo no disponible'}"></td>
+                <td th:text="${alquiler.cliente != null ? alquiler.cliente.nombre + ' (' + alquiler.cliente.dni + ')' : 'Cliente no disponible'}"></td>
+                <td th:text="${alquiler.fechaInicio}"></td>
+                <td th:text="${alquiler.fechaFin}"></td>
+                <td th:text="${#numbers.formatDecimal(alquiler.precio, 1, 2).replace('.', ',')} + ' €'"></td>
                 <td class="opciones">
                     <a th:href="@{/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">✏️</a>
-
-                    <a th:href="@{/alquiler/eliminar/{id}(id=${alquiler.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
-                        ❌
-                    </a>
+                    <a th:href="@{/alquiler/eliminar/{id}(id=${alquiler.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">❌</a>
                 </td>
             </tr>
             </tbody>
