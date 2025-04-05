@@ -10,8 +10,10 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/alquiler")
@@ -29,7 +31,7 @@ public class AlquilerControlador {
 
     @GetMapping
     public String listarAlquiler(Model model) {
-        model.addAttribute("alquieres", alquilerService.obtenerTodosLosAlquileres());
+        model.addAttribute("alquileres", alquilerService.obtenerTodosLosAlquileres());
         return "alquiler/listaAlquiler";
     }
 
@@ -51,7 +53,12 @@ public class AlquilerControlador {
     }
 
     @PostMapping("/guardar")
-    public String guardarAlquiler(@ModelAttribute Alquiler alquiler) {
+    public String guardarAlquiler(@Valid @ModelAttribute Alquiler alquiler, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());
+            model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
+            return "alquiler/addAlquiler";
+        }
         alquilerService.guardarAlquiler(alquiler);
         return "redirect:/alquiler";
     }
@@ -135,5 +142,30 @@ public class AlquilerControlador {
         alquilerService.guardarAlquiler(alq15);
         return "redirect:/";
     }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditarAlquiler(@PathVariable("id") Long id, Model model) {
+        Optional<Alquiler> alquilerOptional = alquilerService.obtenerAlquilerPorId(id);
+        if (alquilerOptional.isPresent()) {
+            model.addAttribute("alquiler", alquilerOptional.get());
+            model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());
+            model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
+            return "alquiler/editAlquiler";
+        } else {
+            return "redirect:/alquiler"; // redirige a la página de alquiler cuando null
+        }
+    }
+
+    @PostMapping("/actualizar")
+    public String actualizarAlquiler(@Valid @ModelAttribute Alquiler alquiler, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());
+            model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
+            return "alquiler/editAlquiler";
+        }
+        alquilerService.guardarAlquiler(alquiler);
+        return "redirect:/alquiler";
+    }
+
 
 }

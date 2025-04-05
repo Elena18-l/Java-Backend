@@ -50,9 +50,8 @@
         <td th:text="${cliente.dni}"></td>
         <td th:text="${cliente.fechaNacimiento}"></td>
         <td class="opciones">
-            <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">
-                ✏️
-            </a>
+            <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">✏️</a>
+
             <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
                 ❌
             </a>

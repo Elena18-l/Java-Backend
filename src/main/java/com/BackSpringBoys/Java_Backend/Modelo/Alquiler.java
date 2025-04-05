@@ -1,14 +1,42 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.time.LocalDate;
 import java.time.*;
 
 @Entity
 public class Alquiler {
+
+    @NotNull(message = "La fecha de inicio es obligatoria")
+    @FutureOrPresent(message = "La fecha de inicio debe ser hoy o en el futuro")
+    @Column(name = "fecha_inicio", nullable = false)
+    private LocalDate fechaInicio;
+
+    @NotNull(message = "La fecha de fin es obligatoria")
+    @Future(message = "La fecha de fin debe ser en el futuro")
+    @Column(name = "fecha_fin", nullable = false)
+    private LocalDate fechaFin;
+
+    @ManyToOne
+    @JoinColumn(name = "id_vehiculo")
+    @NotNull(message = "Debe seleccionar un vehículo")
+    private Vehiculo vehiculo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    @NotNull(message = "Debe seleccionar un cliente")
+    private Cliente cliente;
+
+    @Min(value = 0, message = "El precio debe ser mayor o igual a 0")
+    @Column(nullable = false)
+    private double precio;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /*
+    métodos sin validación
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
@@ -24,6 +52,8 @@ public class Alquiler {
 
     @Column(nullable = false)
     private double precio;
+
+     */
 
     public Alquiler() {
     }

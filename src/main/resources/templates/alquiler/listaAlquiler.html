@@ -24,7 +24,7 @@
     </div>
 </header>
 
-        <h2 class="franja">Lista de Alquiler "</h2>
+        <h2 class="franja">Lista de Alquiler</h2>
         <div class="button-container">
         <a href="/alquiler/nuevo" class="create-button">Agregar Nuevo Alquiler</a>
         </div>
@@ -45,9 +45,8 @@
                 <td th:text="${alquiler.cliente.nombre}"></td>
                 <td th:text="${alquiler.precio}"></td>
                 <td class="opciones">
-                    <a th:href="@{/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">
-                        ✏️
-                    </a>
+                    <a th:href="@{/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">✏️</a>
+
                     <a th:href="@{/alquiler/eliminar/{id}(id=${alquiler.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
                         ❌
                     </a>
