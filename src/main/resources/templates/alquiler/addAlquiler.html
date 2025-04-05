@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-
 <h2 class="franja">Agregar Nuevo Alquiler</h2>
 
 <form th:action="@{/alquiler/guardar}" th:object="${alquiler}" method="post">
@@ -39,7 +38,8 @@
     <button type="submit">Guardar</button>
 </form>
 
-<a href="/alquiler">Volver a la lista de alquileres</a>
-
+<div class="button-container">
+    <a th:href="@{/alquiler}" class="create-button">Volver a la lista de Alquiler</a>
+</div>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Agregar Nuevo Cliente</h1>
+<h2 class="franja">Agregar Nuevo Cliente</h2>
 
 <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
     <label for="nombre">Nombre:</label>
@@ -34,7 +34,8 @@
     <button type="submit">Guardar</button>
 </form>
 
-<br>
-<a href="/clientes">Volver a la lista de clientes</a>
+<div class="button-container">
+    <a th:href="@{/clientes}" class="create-button">Volver a la lista de Clientes</a>
+</div>
 </body>
 </html>
