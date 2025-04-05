@@ -178,5 +178,10 @@ public class AlquilerControlador {
         return "redirect:/alquiler";
     }
 
+    @GetMapping("/eliminar/{id}")
+    public String eliminarAlquiler(@PathVariable("id") Long id) {
+        alquilerService.eliminarAlquiler(id);
+        return "redirect:/alquiler";
+    }
 
 }

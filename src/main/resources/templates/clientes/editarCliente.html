@@ -4,6 +4,9 @@
   <title>Editar Cliente</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 <h2 class="franja">Editar Cliente</h2>
@@ -12,19 +15,19 @@
   <input type="hidden" th:field="*{id}" />
 
   <label for="nombre">Nombre:</label>
-  <input type="text" id="nombre" th:field="*{nombre}" required><br>
+  <input type="text" id="nombre" th:field="*{nombre}" required>
 
   <label for="apellido1">Primer Apellido:</label>
-  <input type="text" id="apellido1" th:field="*{apellido1}" required><br>
+  <input type="text" id="apellido1" th:field="*{apellido1}" required>
 
   <label for="apellido2">Segundo Apellido:</label>
-  <input type="text" id="apellido2" th:field="*{apellido2}"><br>
+  <input type="text" id="apellido2" th:field="*{apellido2}">
 
   <label for="dni">DNI:</label>
-  <input type="text" id="dni" th:field="*{dni}" required><br>
+  <input type="text" id="dni" th:field="*{dni}" required>
 
   <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-  <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" required><br>
+  <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" required>
 
   <button type="submit">Guardar Cambios</button>
 </form>

@@ -35,6 +35,24 @@ main {
     box-sizing: border-box;
 }
 
+form select,
+form input[type="number"],
+form input[type="date"] {
+    padding: 10px;
+    border-radius: 4px;
+    border: 2px solid var(--secondary);
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form select:focus,
+form input[type="number"]:focus,
+form input[type="date"]:focus {
+    border-color: var(--main);
+    outline: none;
+}
+
 form {
     background-color: white;
     padding: 2rem;

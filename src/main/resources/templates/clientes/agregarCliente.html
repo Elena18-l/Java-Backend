@@ -4,7 +4,9 @@
     <title>Agregar Cliente</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css" />
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 <h2 class="franja">Agregar Nuevo Cliente</h2>
@@ -12,24 +14,19 @@
 <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required>
-    <br>
 
     <label for="apellido1">Primer Apellido:</label>
     <input type="text" id="apellido1" name="apellido1" th:field="*{apellido1}" required>
-    <br>
 
     <label for="apellido2">Segundo Apellido (opcional):</label>
     <input type="text" id="apellido2" name="apellido2" th:field="*{apellido2}">
-    <br>
 
     <label for="dni">DNI:</label>
     <input type="text" id="dni" name="dni" th:field="*{dni}" required>
     <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" style="color: red;"></span>
-    <br>
 
     <label for="fechaNacimiento">Fecha de Nacimiento:</label>
     <input type="date" id="fechaNacimiento" name="fechaNacimiento" th:field="*{fechaNacimiento}" required>
-    <br>
 
     <button type="submit">Guardar</button>
 </form>
