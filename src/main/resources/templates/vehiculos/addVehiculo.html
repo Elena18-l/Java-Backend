@@ -8,27 +8,26 @@
 <body>
 <h2 class="franja">Agregar Nuevo Vehículo</h2>
 
-<form class=" login-form" th:action="@{/vehiculo/guardar}" th:object="${vehiculo}" method="post">
+<form th:action="@{/vehiculo/guardar}" th:object="${vehiculo}" method="post">
     <label for="matricula">Matrícula:</label>
     <input type="text" id="matricula" name="matricula" th:field="*{matricula}" required>
-    <br>
 
     <label for="marca">Marca:</label>
     <input type="text" id="marca" name="marca" th:field="*{marca}" required>
-    <br>
 
     <label for="modelo">Modelo:</label>
     <input type="text" id="modelo" name="modelo" th:field="*{modelo}" required>
-    <br>
 
     <label for="foto">Foto:</label>
     <input type="text" id="foto" name="foto" th:field="*{foto}">
-    <br>
 
     <button type="submit">Guardar</button>
 </form>
 
-<br>
-<a href="/vehiculo" class="create-button">Volver a la lista de Vehículos</a>
+<div class="button-container">
+<a th:href="@{/vehiculo}" class="create-button">Volver a la lista de Vehículos</a>
+</div>
+<!--
+<a href="/vehiculo" class="create-button">Volver a la lista de Vehículos</a> -->
 </body>
 </html>
