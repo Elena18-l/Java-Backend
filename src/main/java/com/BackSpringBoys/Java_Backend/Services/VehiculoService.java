@@ -24,6 +24,9 @@ public class VehiculoService {
     }
 
     public Vehiculo guardarVehiculo(Vehiculo vehiculo) {
+        if (this.existeVehiculoPorMatricula(vehiculo.getMatricula())) {
+            throw new IllegalArgumentException("La matrícula ya existe");
+        }
         return vehiculoRepositorio.save(vehiculo);
     }
 
@@ -33,6 +36,10 @@ public class VehiculoService {
 
     public Optional<Vehiculo> obtenerVehiculoPorMatricula(String matricula) {
         return vehiculoRepositorio.findByMatricula(matricula);
+    }
+
+    public boolean existeVehiculoPorMatricula(String matricula) {
+        return vehiculoRepositorio.existsByMatricula(matricula);
     }
 
     public void eliminarVehiculoPorMatricula(String matricula) {

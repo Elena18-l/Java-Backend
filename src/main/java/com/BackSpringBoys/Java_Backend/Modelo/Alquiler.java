@@ -3,7 +3,6 @@ package com.BackSpringBoys.Java_Backend.Modelo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import java.time.*;
 import java.time.LocalDate;
 
 @Entity
@@ -11,11 +10,13 @@ public class Alquiler {
 
     @NotNull(message = "La fecha de inicio es obligatoria")
     @FutureOrPresent(message = "La fecha de inicio debe ser hoy o en el futuro")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "La fecha de fin es obligatoria")
     @Future(message = "La fecha de fin debe ser en el futuro")
     @Column(name = "fecha_fin", nullable = false)
@@ -125,6 +126,15 @@ public class Alquiler {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    @AssertTrue(message = "La fecha de inicio debe ser anterior a la fecha de fin")
+    public boolean isFechaValida()
+    {
+        if (fechaInicio != null && fechaFin != null) {
+            return fechaInicio.isBefore(fechaFin);
+        }
+        return false;
     }
     @Override
     public String toString() {

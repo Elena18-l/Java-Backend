@@ -14,12 +14,15 @@
 <form th:action="@{/vehiculo/guardar}" th:object="${vehiculo}" method="post">
     <label for="matricula">Matrícula:</label>
     <input type="text" id="matricula" name="matricula" th:field="*{matricula}" required>
+    <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}" style="color: red;"></span>
 
     <label for="marca">Marca:</label>
     <input type="text" id="marca" name="marca" th:field="*{marca}" required>
+    <span th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" style="color: red;"></span>
 
     <label for="modelo">Modelo:</label>
     <input type="text" id="modelo" name="modelo" th:field="*{modelo}" required>
+    <span th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}" style="color: red;"></span>
 
     <!--
     <label for="foto">Foto:</label>

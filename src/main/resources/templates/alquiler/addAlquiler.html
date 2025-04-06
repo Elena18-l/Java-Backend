@@ -31,12 +31,17 @@
 
     <label for="fechaInicio">Fecha de Inicio:</label>
     <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required>
+    <span th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}" style="color: red;"></span>
 
     <label for="fechaFin">Fecha de Fin:</label>
     <input type="date" id="fechaFin" th:field="*{fechaFin}" required>
+    <span th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}" style="color: red;"></span>
 
     <label for="precio">Precio (€):</label>
     <input type="number" step="0.01" id="precio" th:field="*{precio}" required>
+    <span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" style="color: red;"></span>
+
+    <span th:if="${#fields.hasErrors('fechaValida')}" th:errors="*{fechaValida}" style="color: red;"></span>
 
     <button type="submit">Guardar</button>
 </form>

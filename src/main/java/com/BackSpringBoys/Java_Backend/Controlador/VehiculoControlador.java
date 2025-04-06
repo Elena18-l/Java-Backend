@@ -4,6 +4,7 @@ import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
@@ -30,8 +31,14 @@ public class VehiculoControlador {
     }
 
     @PostMapping("/guardar")
-    public String addVehiculo(@ModelAttribute Vehiculo vehiculo) {
-        vehiculoService.guardarVehiculo(vehiculo);
+    public String addVehiculo(@ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
+        try {
+            vehiculoService.guardarVehiculo(vehiculo);
+        }catch (IllegalArgumentException e){
+            result.rejectValue("matricula", "error.matricula", e.getMessage());
+            model.addAttribute("vehiculo", vehiculo);
+            return "vehiculos/addVehiculo";
+        }
         return "redirect:/vehiculo";
     }
 
@@ -56,10 +63,21 @@ public class VehiculoControlador {
 
     @PostMapping("/actualizar")
     public String actualizarVehiculo(@ModelAttribute Vehiculo vehiculo) {
-        vehiculoService.guardarVehiculo(vehiculo); // reutilizar el mismo método de guardar
+        vehiculoService.guardarVehiculo(vehiculo);
         return "redirect:/vehiculo";
     }
 
-
-
+    public boolean validarMatricula(String matricula) {
+        Iterable<Vehiculo> vehiculos = vehiculoService.obternerTodosLosVehiculos();
+        if (vehiculos != null) {
+            for (Vehiculo vehiculo : vehiculos) {
+                if (vehiculo.getMatricula().equalsIgnoreCase(matricula)) {
+                    return false;
+                }
+            }
+        }else {
+            return true;
+        }
+        return true;
+    }
 }

@@ -2,6 +2,7 @@ package com.BackSpringBoys.Java_Backend.Modelo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -34,6 +35,7 @@ public class Cliente  {
     @Column(name = "fecha_nacimiento", nullable = false)
     @NotNull(message = "La fecha de nacimiento es obligatoria")
     @Past(message = "La fecha de nacimiento debe ser en el pasado")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaNacimiento;
 
 

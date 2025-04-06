@@ -6,9 +6,10 @@ import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.AlquilerService;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
@@ -40,7 +41,7 @@ public class AlquilerControlador {
     public String listarAlquiler(Model model) {
         System.out.println("Intentando cargar lista de alquileres...");
         var alquileres = alquilerService.obtenerTodosLosAlquileres();
-        alquileres.forEach(a -> System.out.println(a)); // Esto imprime cada alquiler
+        alquileres.forEach(a -> System.out.println(a));
 
         model.addAttribute("alquileres", alquileres);
         return "alquiler/listaAlquiler";
@@ -66,6 +67,19 @@ public class AlquilerControlador {
     @PostMapping("/guardar")
     public String guardarAlquiler(@Valid @ModelAttribute Alquiler alquiler, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            if (result.hasGlobalErrors()) {
+                for (ObjectError error : result.getGlobalErrors()) {
+                    System.out.println("ERROR GLOBAL: " + error.getDefaultMessage());
+                }
+            }
+
+            if (result.hasFieldErrors()) {
+                for (FieldError fieldError : result.getFieldErrors()) {
+                    System.out.println("ERROR DE CAMPO: " + fieldError.getField() + " - " + fieldError.getDefaultMessage());
+                }
+            }
+
+            System.out.println(result.getFieldError());
             model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());
             model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
             return "alquiler/addAlquiler";
@@ -163,7 +177,7 @@ public class AlquilerControlador {
             model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
             return "alquiler/editAlquiler";
         } else {
-            return "redirect:/alquiler"; // redirige a la página de alquiler cuando null
+            return "redirect:/alquiler";
         }
     }
 

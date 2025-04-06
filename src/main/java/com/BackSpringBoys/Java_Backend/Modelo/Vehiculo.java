@@ -1,7 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Vehiculo {
@@ -9,12 +9,16 @@ public class Vehiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // TODO regex aqui o en controller??
+    @NotNull(message = "La matrícula es obligatoria")
     @Column(nullable = false, unique = true, length = 7)
     private String matricula;
 
+    @NotNull(message = "La marca es obligatoria")
     @Column(nullable = false, length = 50)
     private String marca;
 
+    @NotNull(message = "El modelo es obligatorio")
     @Column(nullable = false, length = 50)
     private String modelo;
 
@@ -91,4 +95,5 @@ public class Vehiculo {
     public String toString() {
         return "Vehiculo " + id + ", Matricula: " + matricula + ", Modelo: " + modelo + ", Marca: '" + marca + ", Foto: " + foto + ".";
     }
+
 }
