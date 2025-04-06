@@ -27,44 +27,44 @@
         </div>
     </div>
 </header>
+<main style="width: 100%; height: 100%;">
+    <div style="width: 100%;">
+        <h2 class="franja">Lista de Vehículos</h2>
+        <div class="button-container">
+            <a th:href="@{/vehiculo/nuevo}" class="create-button">Añadir vehículo</a>
+        </div>
+    </div>
+    <section style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="vehiculo : ${vehiculos}">
+                    <td th:text="${vehiculo.matricula}"></td>
+                    <td th:text="${vehiculo.marca}"></td>
+                    <td th:text="${vehiculo.modelo}"></td>
 
-<h2 class="franja">Lista de Vehículos</h2>
-
-<!-- Botón de crear vehículo -->
-<div class="button-container">
-    <a href="/vehiculo/nuevo" class="create-button">Añadir vehículo</a>
-</div>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Matrícula</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Opciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="vehiculo : ${vehiculos}">
-        <td th:text="${vehiculo.matricula}"></td>
-        <td th:text="${vehiculo.marca}"></td>
-        <td th:text="${vehiculo.modelo}"></td>
-
-        <td class="opciones">
-            <a th:href="@{/vehiculo/editar/{id}(id=${vehiculo.id})}" class="icono editar" title="Editar">
-                ✏️<i class="fas fa-edit"></i>
-            </a>
-            <a th:href="@{/vehiculo/eliminar/{id}(id=${vehiculo.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
-                ❌
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
+                    <td class="opciones">
+                        <a th:href="@{/vehiculo/editar/{id}(id=${vehiculo.id})}" class="icono editar" title="Editar">
+                            ✏️<i class="fas fa-edit"></i>
+                        </a>
+                        <a th:href="@{/vehiculo/eliminar/{id}(id=${vehiculo.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                            ❌
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
 <footer>
     <p>BackSpringBoys - 2025 - uoc.edu</p>
 </footer>
-
 </body>
 </html>

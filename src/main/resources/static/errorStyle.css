@@ -18,7 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #FFEB3B;
+    background-color: #BBFFFF;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -66,4 +66,33 @@ body {
 
 .retry-button:hover {
     background-color: #1976D2;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212; /* Fondo oscuro */
+    }
+
+    .error-container {
+        background-color: #333333; /* Fondo oscuro para el contenedor de error */
+        color: #fff; /* Texto blanco */
+        box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2); /* Sombra más clara */
+    }
+
+    .error-title {
+        color: #f44336; /* Rojo sigue siendo visible */
+    }
+
+    .error-message {
+        color: #bbb; /* Texto gris claro */
+    }
+
+    .retry-button {
+        background-color: #2196F3;
+        color: white;
+    }
+
+    .retry-button:hover {
+        background-color: #1976D2;
+    }
 }

@@ -27,43 +27,44 @@
         </div>
     </div>
 </header>
+<main style="width: 100%; height: 100%;">
+    <div style="width: 100%;">
+        <h2 class="franja">Lista de Clientes</h2>
+        <div class="button-container">
+            <a th:href="@{/clientes/nuevo}" class="create-button">Añadir cliente</a>
+        </div>
+    </div>
+    <section style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.nombre}"></td>
+                    <td th:text="${cliente.apellido1}"></td>
+                    <td th:text="${cliente.dni}"></td>
+                    <td th:text="${cliente.fechaNacimiento}"></td>
+                    <td class="opciones">
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">✏️</a>
 
-<h2 class="franja">Lista de Clientes</h2>
-
-<!-- Botón de crear cliente -->
-<div class="button-container">
-    <a th:href="@{/clientes/nuevo}" class="create-button">Añadir cliente</a>
-</div>
-
-<table class ="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>DNI</th>
-        <th>Fecha de Nacimiento</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="cliente : ${clientes}">
-        <td th:text="${cliente.id}"></td>
-        <td th:text="${cliente.nombre}"></td>
-        <td th:text="${cliente.apellido1}"></td>
-        <td th:text="${cliente.dni}"></td>
-        <td th:text="${cliente.fechaNacimiento}"></td>
-        <td class="opciones">
-            <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">✏️</a>
-
-            <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
-                ❌
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
+                        <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                            ❌
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
 <footer>
     <p>BackSpringBoys - 2025 - uoc.edu</p>
 </footer>

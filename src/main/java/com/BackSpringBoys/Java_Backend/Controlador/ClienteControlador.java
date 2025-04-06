@@ -1,5 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Controlador;
 
+import com.BackSpringBoys.Java_Backend.Exceptions.DniDuplicadoException;
+import com.BackSpringBoys.Java_Backend.Exceptions.FechaNacException;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import jakarta.validation.Valid;
@@ -37,36 +39,63 @@ public class ClienteControlador {
         if (bindingResult.hasErrors()) {
             return "clientes/agregarCliente";
         }
-
-        clienteService.guardarCliente(cliente);
+        try{
+            clienteService.guardarCliente(cliente);
+        }catch (DniDuplicadoException e){
+            bindingResult.rejectValue("dni", "error.dni", e.getMessage());
+            model.addAttribute("cliente", cliente);
+            return "clientes/agregarCliente";
+        }catch (FechaNacException e){
+            bindingResult.rejectValue("fechaNacimiento", "error.fechaNacimiento", e.getMessage());
+            model.addAttribute("cliente", cliente);
+            return "clientes/agregarCliente";
+        }
         return "redirect:/clientes";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarCliente(@PathVariable("id") Long id) {
-        clienteService.eliminarCliente(id);
-        return "redirect:/clientes";
+        try {
+            clienteService.eliminarCliente(id);
+            return "redirect:/clientes";
+        } catch (Exception e) {
+            return "redirect:/clientes";
+        }
     }
 
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarCliente(@PathVariable("id") Long id, Model model) {
-        Optional<Cliente> optionalCliente = clienteService.obtenerClientePorId(id);
+        try {
+            Optional<Cliente> optionalCliente = clienteService.obtenerClientePorId(id);
 
-        if (optionalCliente.isEmpty()) {
-            return "redirect:/clientes"; // por si no existe
+            if (optionalCliente.isEmpty()) {
+                return "redirect:/clientes";
+            }
+
+            model.addAttribute("cliente", optionalCliente.get());
+            return "clientes/editarCliente";
+        }catch(Exception e){
+            return "redirect:/clientes";
         }
-
-        model.addAttribute("cliente", optionalCliente.get());
-        return "clientes/editarCliente"; // vista que mostraremos
     }
 
     @PostMapping("/actualizar")
-    public String actualizarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult bindingResult) {
+    public String actualizarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "clientes/editarCliente";
         }
 
-        clienteService.guardarCliente(cliente); // reutiliza el método de crear
+        try{
+            clienteService.guardarCliente(cliente);
+        }catch (DniDuplicadoException e){
+            bindingResult.rejectValue("dni", "error.dni", e.getMessage());
+            model.addAttribute("cliente", cliente);
+            return "clientes/agregarCliente";
+        }catch (FechaNacException e){
+            bindingResult.rejectValue("fechaNacimiento", "error.fechaNacimiento", e.getMessage());
+            model.addAttribute("cliente", cliente);
+            return "clientes/agregarCliente";
+        }
         return "redirect:/clientes";
     }
 }

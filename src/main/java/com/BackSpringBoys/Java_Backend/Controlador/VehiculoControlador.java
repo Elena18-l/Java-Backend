@@ -1,5 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Controlador;
 
+import com.BackSpringBoys.Java_Backend.Exceptions.MatriculaRegException;
+import com.BackSpringBoys.Java_Backend.Exceptions.MatriculaRepetidaException;
 import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
 import org.springframework.stereotype.Controller;
@@ -33,8 +35,15 @@ public class VehiculoControlador {
     @PostMapping("/guardar")
     public String addVehiculo(@ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
         try {
+            if (!validarMatricula(vehiculo.getMatricula())) {
+                throw new MatriculaRegException("La matrícula no es válida");
+            }
             vehiculoService.guardarVehiculo(vehiculo);
-        }catch (IllegalArgumentException e){
+        }catch (MatriculaRepetidaException e){
+            result.rejectValue("matricula", "error.matricula", e.getMessage());
+            model.addAttribute("vehiculo", vehiculo);
+            return "vehiculos/addVehiculo";
+        } catch (MatriculaRegException e){
             result.rejectValue("matricula", "error.matricula", e.getMessage());
             model.addAttribute("vehiculo", vehiculo);
             return "vehiculos/addVehiculo";
@@ -44,17 +53,24 @@ public class VehiculoControlador {
 
     @GetMapping("/eliminar/{id}")
     public String deleteVehiculo(@PathVariable("id") Long id) {
-        vehiculoService.eliminarVehiculo(id);
-        return "redirect:/vehiculo";
+        try{
+            vehiculoService.eliminarVehiculo(id);
+            return "redirect:/vehiculo";
+        }catch (IllegalArgumentException e){
+            return "redirect:/vehiculo";
+        }
     }
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarVehiculo(@PathVariable Long id, Model model) {
-        Optional<Vehiculo> optionalVehiculo = vehiculoService.obtenerVehiculoPorId(id);
-        if (optionalVehiculo.isPresent()) {
-            model.addAttribute("vehiculo", optionalVehiculo.get());
-            return "vehiculos/editVehiculo";
-        } else {
-            // Redirigir a la lista o mostrar un error si no se encuentra el vehículo
+        try{
+            Optional<Vehiculo> optionalVehiculo = vehiculoService.obtenerVehiculoPorId(id);
+            if (optionalVehiculo.isPresent()) {
+                model.addAttribute("vehiculo", optionalVehiculo.get());
+                return "vehiculos/editVehiculo";
+            } else {
+                return "redirect:/vehiculo";
+            }
+        }catch (Exception e){
             return "redirect:/vehiculo";
         }
     }
@@ -62,22 +78,19 @@ public class VehiculoControlador {
 
 
     @PostMapping("/actualizar")
-    public String actualizarVehiculo(@ModelAttribute Vehiculo vehiculo) {
-        vehiculoService.guardarVehiculo(vehiculo);
+    public String actualizarVehiculo(@ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
+        try{
+            vehiculoService.guardarVehiculo(vehiculo);
+        }catch (IllegalArgumentException e){
+            result.rejectValue("matricula", "error.matricula", e.getMessage());
+            model.addAttribute("vehiculo", vehiculo);
+            return "vehiculos/addVehiculo";
+        }
         return "redirect:/vehiculo";
     }
 
     public boolean validarMatricula(String matricula) {
-        Iterable<Vehiculo> vehiculos = vehiculoService.obternerTodosLosVehiculos();
-        if (vehiculos != null) {
-            for (Vehiculo vehiculo : vehiculos) {
-                if (vehiculo.getMatricula().equalsIgnoreCase(matricula)) {
-                    return false;
-                }
-            }
-        }else {
-            return true;
-        }
-        return true;
+        String regex = "^\\d{4}[B-DF-HJ-NP-TV-Z]{3}$";
+        return matricula.matches(regex);
     }
 }

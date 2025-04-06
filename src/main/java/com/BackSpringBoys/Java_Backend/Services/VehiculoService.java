@@ -1,5 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Services;
 
+import com.BackSpringBoys.Java_Backend.Exceptions.MatriculaRegException;
+import com.BackSpringBoys.Java_Backend.Exceptions.MatriculaRepetidaException;
 import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Repositorio.VehiculoRepositorio;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class VehiculoService {
 
     public Vehiculo guardarVehiculo(Vehiculo vehiculo) {
         if (this.existeVehiculoPorMatricula(vehiculo.getMatricula())) {
-            throw new IllegalArgumentException("La matrícula ya existe");
+            throw new MatriculaRepetidaException("La matrícula ya existe");
         }
         return vehiculoRepositorio.save(vehiculo);
     }
