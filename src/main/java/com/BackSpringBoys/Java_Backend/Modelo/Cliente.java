@@ -37,6 +37,12 @@ public class Cliente  {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaNacimiento;
 
+    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "El correo electrónico no es válido")
+    @NotBlank(message = "El correo electrónico es obligatorio")
+    @Size(max = 100, message = "El correo electrónico no puede superar los 100 caracteres")
+    private String email;
+
     @Column(unique = true, nullable = false)
     private String username;
 
@@ -120,6 +126,8 @@ public class Cliente  {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    //esto seria la class USER
+
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username; }
@@ -127,6 +135,10 @@ public class Cliente  {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     public Rol getRol() { return rol; }
 

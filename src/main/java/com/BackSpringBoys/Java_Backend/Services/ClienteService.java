@@ -1,6 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Services;
 
 import com.BackSpringBoys.Java_Backend.Exceptions.DniDuplicadoException;
+import com.BackSpringBoys.Java_Backend.Exceptions.EmailDuplicadoException;
 import com.BackSpringBoys.Java_Backend.Exceptions.FechaNacException;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
@@ -46,6 +47,14 @@ public class ClienteService {
             throw new DniDuplicadoException("El DNI ya está registrado.");
 
         }
+        if (this.existsByEmail(cliente.getEmail())) {
+            System.out.println("el email ya existe");
+            throw new EmailDuplicadoException("El email ya está registrado.");
+        }
+        if (this.existsByUsername(cliente.getUsername())) {
+            System.out.println("el username ya existe");
+            throw new EmailDuplicadoException("El username ya está registrado."); //Ya son muchas exepctions 💔
+        }
         return clienteRepositorio.save(cliente);
     }
 
@@ -56,4 +65,13 @@ public class ClienteService {
     public boolean existsByDni(String dni) {
         return clienteRepositorio.existsByDni(dni);
     }
+
+    public boolean existsByEmail(String email) {
+        return clienteRepositorio.existsByEmail(email);
+    }
+
+    public boolean existsByUsername(String username) {
+        return clienteRepositorio.existsByUsername(username);
+    }
+
 }
