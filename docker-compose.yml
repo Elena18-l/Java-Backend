@@ -11,11 +11,11 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - backend
-#    healthcheck:
-#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-#      interval: 10s
-#      retries: 5
-#      start_period: 30s
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+      start_period: 10s
 
   app:
     build:
@@ -23,18 +23,33 @@ services:
       dockerfile: Dockerfile
     container_name: java-app-spring
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
       - "8080:8080"
     networks:
       - backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alquiler_vehiculos
+      SPRING_DATASOURCE_URL: jdbc:mysql://bbdd-mysql:3306/alquiler_vehiculos
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: AA1234
 #      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
 #      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
 #      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: bbdd-mysql
+      PMA_USER: root
+      PMA_PASSWORD: AA1234
+    ports:
+      - "8081:80"
+    networks:
+      - backend
 
 networks:
     backend:
