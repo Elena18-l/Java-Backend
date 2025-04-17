@@ -49,6 +49,10 @@ public class ClienteControlador {
             bindingResult.rejectValue("fechaNacimiento", "error.fechaNacimiento", e.getMessage());
             model.addAttribute("cliente", cliente);
             return "clientes/agregarCliente";
+        } catch (Exception e) { // todo : adaptar Exceptions
+            bindingResult.rejectValue("dni", "error.dni", "Error al guardar el cliente.");
+            model.addAttribute("cliente", cliente);
+            return "clientes/agregarCliente";
         }
         return "redirect:/clientes";
     }
