@@ -18,8 +18,8 @@ public class SecurityConfig {
 
     private final ClienteDetailsServiceImpl clienteDetailsService;
 
-    public SecurityConfig(ClienteDetailsServiceImpl clienteDetailsService) {
-        this.clienteDetailsService = clienteDetailsService;
+    public SecurityConfig(ClienteDetailsServiceImpl ClienteDetailsServiceImpl) {
+        this.clienteDetailsService = ClienteDetailsServiceImpl;
     }
 
     @Bean
@@ -27,15 +27,16 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("**.css", "**.png").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
-                .logout(LogoutConfigurer::permitAll);
+                );
+//                .formLogin((form) -> form
+//                        .loginPage("/login")
+//                        .permitAll()
+//                )
+//                .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
