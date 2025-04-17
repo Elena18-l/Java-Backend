@@ -2,10 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
-</head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
 <body>
-<h1 style="font-size: xxx-large; color: red;">ESTO ES EL LOGIIIIN</h1>
+
 <div class="login-wrapper">
+    <h2>Login</h2>
 <form class="login-form" th:action="@{/login}" th:object="${cliente}" method="post">
     <label>Usuario: <input type="text" th:field="*{username}" placeholder="Usuario"/></label><br/>
     <label>Contraseña: <input type="password" th:field="*{password}" placeholder="Contraseña"/></label><br/>
