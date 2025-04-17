@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Registro</title>
+    <title>Login</title>
 </head>
 <body>
 <h1 style="font-size: xxx-large; color: red;">ESTO ES EL LOGIIIIN</h1>
-<h2>Crear cuenta</h2>
-<form th:action="@{/registro}" th:object="${cliente}" method="post">
-    <label>Usuario: <input type="text" th:field="*{username}" /></label><br/>
-    <label>Contraseña: <input type="password" th:field="*{password}" /></label><br/>
-    <label>Fecha de nacimiento: <input type="date" th:field="*{fechaNacimiento}" /></label><br/>
+<div class="login-wrapper">
+<form class="login-form" th:action="@{/login}" th:object="${cliente}" method="post">
+    <label>Usuario: <input type="text" th:field="*{username}" placeholder="Usuario"/></label><br/>
+    <label>Contraseña: <input type="password" th:field="*{password}" placeholder="Contraseña"/></label><br/>
+
     <button type="submit">Login</button>
+
 </form>
+</div>
+<footer>
+    <p>BackSpringBoys - 2025 | <a href="https://fp.uoc.fje.edu/es/estudios" target="_blank">UOC</a></p>
+</footer>
 </body>
 </html>
