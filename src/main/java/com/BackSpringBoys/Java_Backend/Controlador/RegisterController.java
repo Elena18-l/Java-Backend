@@ -20,4 +20,6 @@ public class RegisterController {
         model.addAttribute("cliente", new Cliente());
         return "register";
     }
+
+
 }
