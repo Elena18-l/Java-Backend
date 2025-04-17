@@ -12,12 +12,18 @@
 
 <div class="login-wrapper">
     <h2>Crear cuenta</h2>
-<form class="login-form" th:action="@{/registro}" th:object="${cliente}" method="post">
-    <label>Usuario: <input type="text" th:field="*{username}"  placeholder="Usuario" /></label><br/>
-    <label>Contraseña: <input type="password" th:field="*{password}" /></label><br/>
-    <label>Fecha de nacimiento: <input type="date" th:field="*{fechaNacimiento}"placeholder="Contraseña" /></label><br/>
-    <button type="submit">Registrarse</button>
-</form>
+    <form class="login-form" th:action="@{/register}" th:object="${cliente}" method="post">
+        <label>Usuario: <input type="text" th:field="*{username}"  placeholder="Usuario" /></label><br/>
+        <label>Contraseña: <input type="password" th:field="*{password}" /></label><br/>
+        <label>Email: <input type="email" th:field="*{email}" /></label><br/>
+
+        <label>Nombre: <input type="text" th:field="*{nombre}" /></label><br/>
+        <label>Primer Apellido: <input type="text" th:field="*{apellido1}" /></label><br/>
+        <label>Segundo Apellido: <input type="text" th:field="*{apellido2}" /></label><br/>
+        <label>DNI: <input type="text" th:field="*{dni}" /></label><br/>
+        <label>Fecha de nacimiento: <input type="date" th:field="*{fechaNacimiento}"placeholder="Contraseña" /></label><br/>
+        <button type="submit">Registrarse</button>
+    </form>
 </div>
 <footer>
     <p>BackSpringBoys - 2025 | <a href="https://fp.uoc.fje.edu/es/estudios" target="_blank">UOC</a></p>

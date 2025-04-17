@@ -16,14 +16,16 @@
                 <a th:href="@{/}" class="logo-link">Alquiler<br>de Vehículos</a>
             </div>
             <nav>
-                <a href="/vehiculo" class="nav-link">Vehículo</a>
+                <a href="/user/vehiculo" class="nav-link">Vehículo</a>
                 <a href="/clientes" class="nav-link">Cliente</a>
                 <a href="/alquiler" class="nav-link">Alquiler</a>
             </nav>
         </div>
         <div class="header-right">
             <span>User</span>
-            <button class="logout">Cerrar sesión</button>
+            <form th:action="@{/logout}" method="post">
+                <button class="logout">Cerrar sesión</button>
+            </form>
         </div>
     </div>
 </header>

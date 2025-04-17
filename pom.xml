@@ -89,6 +89,10 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.4.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
 	</dependencies>
 
 	<repositories>

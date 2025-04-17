@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/vehiculo")
+@RequestMapping({"user/vehiculo", "admin/vehiculo"})
 public class VehiculoControlador {
 
     public VehiculoService vehiculoService;

@@ -23,7 +23,9 @@
         </div>
         <div class="header-right">
             <span>User</span>
-            <button class="logout">Cerrar sesión</button>
+            <form th:action="@{/logout}" method="post">
+                <button class="logout">Cerrar sesión</button>
+            </form>
         </div>
     </div>
 </header>

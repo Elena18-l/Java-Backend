@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/clientes")
+@RequestMapping({"user/clientes", "admin/clientes"})
 public class ClienteControlador {
 
     public ClienteService clienteService;

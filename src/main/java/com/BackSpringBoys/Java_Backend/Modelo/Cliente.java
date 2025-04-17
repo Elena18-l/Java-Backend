@@ -144,8 +144,25 @@ public class Cliente  {
 
     public void setRol(Rol rol) { this.rol = rol; }
 
+//    @Override
+//    public String toString() {
+//        return "Cliente " + id + "- DNI:'" + dni + '\'' + ", Nombre Completo:'" + nombre + ' ' + apellido1 + ' ' + apellido2 + ".\n";
+//    }
+
+
     @Override
     public String toString() {
-        return "Cliente " + id + "- DNI:'" + dni + '\'' + ", Nombre Completo:'" + nombre + ' ' + apellido1 + ' ' + apellido2 + ".\n";
+        return "Cliente{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", rol=" + rol +
+                '}';
     }
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/alquiler")
+@RequestMapping({"user/alquiler", "admin/alquiler"})
 public class AlquilerControlador {
 
     private final VehiculoService vehiculoService;

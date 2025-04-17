@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Lista de Vehículos</title>
     <meta charset="UTF-8">
@@ -15,15 +16,28 @@
             <div class="logo">
                 <a th:href="@{/}" class="logo-link">Alquiler<br>de Vehículos</a>
             </div>
-            <nav>
-                <a href="/vehiculo" class="nav-link">Vehículo</a>
-                <a href="/clientes" class="nav-link">Cliente</a>
-                <a href="/alquiler" class="nav-link">Alquiler</a>
-            </nav>
+<!--            <nav>-->
+            <sec:authorize access="hasRole('ADMIN')">
+                <nav>
+                    <a href="/admin/vehiculo" class="nav-link">Vehículo</a>
+                    <a href="/admin/clientes" class="nav-link">Cliente</a>
+                    <a href="/admin/alquiler" class="nav-link">Alquiler</a>
+                </nav>
+            </sec:authorize>
+            <sec:authorize access="hasRole('USER')">
+                <nav>
+                    <a href="/user/vehiculo" class="nav-link">Vehículo</a>
+                    <a href="/user/clientes" class="nav-link">Cliente</a>
+                    <a href="/user/alquiler" class="nav-link">Alquiler</a>
+                </nav>
+            </sec:authorize>
+<!--            </nav>-->
         </div>
         <div class="header-right">
             <span>User</span>
-            <button class="logout">Cerrar sesión</button>
+            <form th:action="@{/logout}" method="post">
+                <button class="logout">Cerrar sesión</button>
+            </form>
         </div>
     </div>
 </header>
