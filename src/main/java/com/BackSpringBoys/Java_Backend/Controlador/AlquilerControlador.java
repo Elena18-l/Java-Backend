@@ -91,7 +91,7 @@ public class AlquilerControlador {
             return "alquiler/addAlquiler";
         }
         alquilerService.guardarAlquiler(alquiler);
-        return "redirect:/alquiler";
+        return "redirect:/admin/alquiler";
     }
 
     @GetMapping("/addPrueba")
@@ -148,7 +148,7 @@ public class AlquilerControlador {
 //        });
 //        addAllAlquiler(alqs);
         System.out.println("Datos de prueba añadidos");
-        return "redirect:alquiler";
+        return "redirect:/admin/alquiler";
     }
 
     private void addAllVehiculos(ArrayList<Vehiculo> vehs){
@@ -195,7 +195,7 @@ public class AlquilerControlador {
             model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
             return "alquiler/editAlquiler";
         } else {
-            return "redirect:/alquiler";
+            return "redirect:/admin/alquiler";
         }
     }
 
@@ -208,13 +208,13 @@ public class AlquilerControlador {
             return "alquiler/editAlquiler";
         }
         alquilerService.guardarAlquiler(alquiler);
-        return "redirect:/alquiler";
+        return "redirect:/admin/alquiler";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarAlquiler(@PathVariable("id") Long id) {
         alquilerService.eliminarAlquiler(id);
-        return "redirect:/alquiler";
+        return "redirect:/admin/alquiler";
     }
 
 }

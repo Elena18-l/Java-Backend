@@ -11,7 +11,7 @@
 <body>
 <h2 class="franja">Agregar Nuevo Vehículo</h2>
 
-<form th:action="@{/vehiculo/guardar}" th:object="${vehiculo}" method="post">
+<form class="formCustom" th:action="@{/admin/vehiculo/guardar}" th:object="${vehiculo}" method="post">
     <label for="matricula">Matrícula:</label>
     <input type="text" id="matricula" name="matricula" th:field="*{matricula}" required>
     <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}" style="color: red;"></span>
@@ -32,7 +32,7 @@
 </form>
 
 <div class="button-container">
-<a th:href="@{/vehiculo}" class="create-button">Volver a la lista de Vehículos</a>
+<a th:href="@{/admin/vehiculo}" class="create-button">Volver a la lista de Vehículos</a>
 </div>
 <!--
 <a href="/vehiculo" class="create-button">Volver a la lista de Vehículos</a> -->

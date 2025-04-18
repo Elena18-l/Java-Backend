@@ -11,7 +11,7 @@
 <body>
 <h2 class="franja">Editar Alquiler</h2>
 
-<form th:action="@{/alquiler/actualizar}" th:object="${alquiler}" method="post">
+<form class="formCustom" th:action="@{/admin/alquiler/actualizar}" th:object="${alquiler}" method="post">
   <input type="hidden" th:field="*{id}" />
 
   <label for="vehiculo">Vehículo:</label>
@@ -43,7 +43,7 @@
 </form>
 
 <div class="button-container">
-  <a th:href="@{/alquiler}" class="create-button">Volver a la lista de Alquiler</a>
+  <a th:href="@{/admin/alquiler}" class="create-button">Volver a la lista de Alquiler</a>
 </div>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <body>
 <h2 class="franja">Agregar Nuevo Cliente</h2>
 
-<form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
+<form class="formCustom" th:action="@{/admin/clientes/guardar}" th:object="${cliente}" method="post">
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required>
     <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color: red;"></span>
@@ -37,7 +37,7 @@
 </form>
 
 <div class="button-container">
-    <a th:href="@{/clientes}" class="create-button">Volver a la lista de Clientes</a>
+    <a th:href="@{/admin/clientes}" class="create-button">Volver a la lista de Clientes</a>
 </div>
 </body>
 </html>

@@ -1,15 +1,15 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
-}
+/*body {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+/*    background-color: #f4f6f8;*/
+/*}*/
 
 .container-perfil {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /*height: 100vh;*/
 }
 
 .card-perfil {

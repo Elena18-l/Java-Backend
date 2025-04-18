@@ -11,7 +11,7 @@
 <body>
 <h2 class="franja">Editar Cliente</h2>
 
-<form th:action="@{/clientes/actualizar}" th:object="${cliente}" method="post">
+<form class="formCustom" th:action="@{/admin/clientes/actualizar}" th:object="${cliente}" method="post">
   <input type="hidden" th:field="*{id}" />
 
   <label for="nombre">Nombre:</label>
@@ -37,7 +37,7 @@
   <button type="submit">Guardar Cambios</button>
 </form>
 <div class="button-container">
-  <a th:href="@{/clientes}" class="create-button">Volver a la lista de Clientes</a>
+  <a th:href="@{/admin/clientes}" class="create-button">Volver a la lista de Clientes</a>
 </div>
 </body>
 </html>

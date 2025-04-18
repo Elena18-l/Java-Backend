@@ -58,7 +58,7 @@ public class ClienteControlador {
             model.addAttribute("cliente", cliente);
             return "clientes/agregarCliente";
         }
-        return "redirect:/clientes";
+        return "redirect:/admin/clientes";
     }
 
     @GetMapping("/eliminar/{id}")
@@ -66,9 +66,9 @@ public class ClienteControlador {
     public String eliminarCliente(@PathVariable("id") Long id) {
         try {
             clienteService.eliminarCliente(id);
-            return "redirect:/clientes";
+            return "redirect:/admin/clientes";
         } catch (Exception e) {
-            return "redirect:/clientes";
+            return "redirect:/admin/clientes";
         }
     }
 
@@ -79,13 +79,13 @@ public class ClienteControlador {
             Optional<Cliente> optionalCliente = clienteService.obtenerClientePorId(id);
 
             if (optionalCliente.isEmpty()) {
-                return "redirect:/clientes";
+                return "redirect:/admin/clientes";
             }
 
             model.addAttribute("cliente", optionalCliente.get());
             return "clientes/editarCliente";
         }catch(Exception e){
-            return "redirect:/clientes";
+            return "redirect:/admin/clientes";
         }
     }
 
@@ -107,7 +107,7 @@ public class ClienteControlador {
             model.addAttribute("cliente", cliente);
             return "clientes/agregarCliente";
         }
-        return "redirect:/clientes";
+        return "redirect:/admin/clientes";
     }
 
 

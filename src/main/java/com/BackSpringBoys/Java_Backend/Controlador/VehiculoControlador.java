@@ -52,7 +52,7 @@ public class VehiculoControlador {
             model.addAttribute("vehiculo", vehiculo);
             return "vehiculos/addVehiculo";
         }
-        return "redirect:/vehiculo";
+        return "redirect:/admin/vehiculo";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -62,7 +62,7 @@ public class VehiculoControlador {
             vehiculoService.eliminarVehiculo(id);
             return "redirect:/vehiculo";
         }catch (IllegalArgumentException e){
-            return "redirect:/vehiculo";
+            return "redirect:/admin/vehiculo";
         }
     }
     @PreAuthorize("hasRole('ADMIN')")
@@ -74,10 +74,10 @@ public class VehiculoControlador {
                 model.addAttribute("vehiculo", optionalVehiculo.get());
                 return "vehiculos/editVehiculo";
             } else {
-                return "redirect:/vehiculo";
+                return "redirect:/admin/vehiculo";
             }
         }catch (Exception e){
-            return "redirect:/vehiculo";
+            return "redirect:/admin/vehiculo";
         }
     }
 
@@ -91,7 +91,7 @@ public class VehiculoControlador {
             model.addAttribute("vehiculo", vehiculo);
             return "vehiculos/addVehiculo";
         }
-        return "redirect:/vehiculo";
+        return "redirect:/admin/vehiculo";
     }
 
     public boolean validarMatricula(String matricula) {
