@@ -3,6 +3,8 @@ package com.BackSpringBoys.Java_Backend.Controlador;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,4 +35,17 @@ public class LoginController {
         return "redirect:/user/clientes";
     }
 
+    @GetMapping("user/perfil")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String getPerfil(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        Cliente cliente = clienteService.findByUsername(username).orElse(null);
+
+        if(cliente == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("cliente", cliente);
+        return "clientes/perfil";
+    }
 }

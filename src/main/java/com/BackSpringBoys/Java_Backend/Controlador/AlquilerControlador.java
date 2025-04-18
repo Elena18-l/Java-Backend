@@ -6,6 +6,7 @@ import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.AlquilerService;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
@@ -39,6 +40,7 @@ public class AlquilerControlador {
     } */
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String listarAlquiler(Model model) {
         System.out.println("Intentando cargar lista de alquileres...");
         var alquileres = alquilerService.obtenerTodosLosAlquileres();
@@ -49,6 +51,7 @@ public class AlquilerControlador {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String alquiler(@RequestParam(name = "id", defaultValue = "0") Long id, Model model) {
         if (id == 0) {
             return "redirect:/alquiler";
@@ -58,6 +61,7 @@ public class AlquilerControlador {
     }
 
     @GetMapping("/nuevo")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioAgregarAlquiler(Model model) {
         model.addAttribute("alquiler", new Alquiler());
         model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());
@@ -66,6 +70,7 @@ public class AlquilerControlador {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasRole('ADMIN')")
     public String guardarAlquiler(@Valid @ModelAttribute Alquiler alquiler, BindingResult result, Model model) {
         if (result.hasErrors()) {
             if (result.hasGlobalErrors()) {
@@ -90,6 +95,7 @@ public class AlquilerControlador {
     }
 
     @GetMapping("/addPrueba")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addDatos(){
         ArrayList<Vehiculo> vehs = new ArrayList<>();
         vehs.add(new Vehiculo( "1235ABC", "Megane", "Renault", ""));
@@ -180,6 +186,7 @@ public class AlquilerControlador {
     }
 
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioEditarAlquiler(@PathVariable("id") Long id, Model model) {
         Optional<Alquiler> alquilerOptional = alquilerService.obtenerAlquilerPorId(id);
         if (alquilerOptional.isPresent()) {
@@ -193,6 +200,7 @@ public class AlquilerControlador {
     }
 
     @PostMapping("/actualizar")
+    @PreAuthorize("hasRole('ADMIN')")
     public String actualizarAlquiler(@Valid @ModelAttribute Alquiler alquiler, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());

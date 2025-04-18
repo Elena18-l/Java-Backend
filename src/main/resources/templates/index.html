@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <title>Inicio</title>
     <meta charset="UTF-8">
@@ -8,31 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <header>
-        <div class="header-container">
-            <div class="header-left">
-                <div class="logo">
-                    <a th:href="@{/}" class="logo-link">Alquiler<br>de Vehículos</a>
-                </div>
-        <nav>
-            <a href="/vehiculo" class="nav-link">Vehículo</a>
-            <a href="/clientes" class="nav-link">Cliente</a>
-            <a href="/alquiler" class="nav-link">Alquiler</a>
-        </nav>
-            </div>
-
-<!--            <div class="header-right">-->
-<!--                <span>User</span>-->
-<!--                <button class="logout">Cerrar sesión</button>-->
-<!--            </div>-->
-            <div class="header-right">
-                <a th:href="@{/register}" class="register">registrarse</a>
-            </div>
-        </div>
-    </header>
-
+<div th:replace="~{fragments/header :: header}"></div>
 <main>
     <div class="login-wrapper">
         <div class="car-image">

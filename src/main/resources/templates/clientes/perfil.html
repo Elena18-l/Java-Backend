@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Usuario</title>
+  <link rel="stylesheet" th:href="@{/css/perfil.css}">
+</head>
+<body>
+<div class="container-perfil">
+  <div class="card-perfil">
+    <div class="avatar-perfil">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar">
+    </div>
+    <h2 class="nombre-perfil" th:text="${cliente.nombre}">Nombre del usuario</h2>
+    <p class="email-perfil" th:text="${cliente.email}">email@example.com</p>
+    <p class="fecha-perfil">
+      <strong>Fecha de nacimiento:</strong>
+      <span th:text="${#temporals.format(cliente.fechaNacimiento, 'dd/MM/yyyy')}">01/01/2000</span>
+    </p>
+
+    <div class="acciones-perfil">
+      <p>PROXIMAMENTE</p>
+<!--      <a th:href="@{/user/perfil/editar}" class="btn-perfil">Editar perfil</a>-->
+<!--      <a th:href="@{/user/perfil/cambiar-password}" class="btn-perfil btn-secundario-perfil">Cambiar contraseña</a>-->
+    </div>
+  </div>
+</div>
+</body>
+</html>

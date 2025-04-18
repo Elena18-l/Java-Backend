@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class ClienteService {
 
-    private ClienteRepositorio clienteRepositorio;
+    private final ClienteRepositorio clienteRepositorio;
     public ClienteService(ClienteRepositorio clienteRepositorio) {
          this.clienteRepositorio = clienteRepositorio;
      }
@@ -74,4 +74,7 @@ public class ClienteService {
         return clienteRepositorio.existsByUsername(username);
     }
 
+    public Optional<Cliente> findByUsername(String username) {
+        return clienteRepositorio.findByUsername(username);
+    }
 }

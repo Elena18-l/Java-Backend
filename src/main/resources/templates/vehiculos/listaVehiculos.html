@@ -10,42 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <div class="header-left">
-            <div class="logo">
-                <a th:href="@{/}" class="logo-link">Alquiler<br>de Vehículos</a>
-            </div>
-<!--            <nav>-->
-            <sec:authorize access="hasRole('ADMIN')">
-                <nav>
-                    <a href="/admin/vehiculo" class="nav-link">Vehículo</a>
-                    <a href="/admin/clientes" class="nav-link">Cliente</a>
-                    <a href="/admin/alquiler" class="nav-link">Alquiler</a>
-                </nav>
-            </sec:authorize>
-            <sec:authorize access="hasRole('USER')">
-                <nav>
-                    <a href="/user/vehiculo" class="nav-link">Vehículo</a>
-                    <a href="/user/clientes" class="nav-link">Cliente</a>
-                    <a href="/user/alquiler" class="nav-link">Alquiler</a>
-                </nav>
-            </sec:authorize>
-<!--            </nav>-->
-        </div>
-        <div class="header-right">
-            <span>User</span>
-            <form th:action="@{/logout}" method="post">
-                <button class="logout">Cerrar sesión</button>
-            </form>
-        </div>
-    </div>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 <main style="width: 100%; height: 100%;">
     <div style="width: 100%;">
         <h2 class="franja">Lista de Vehículos</h2>
-        <div class="button-container">
-            <a th:href="@{/vehiculo/nuevo}" class="create-button">Añadir vehículo</a>
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="button-container">
+            <a th:href="@{/admin/vehiculo/nuevo}" class="create-button">Añadir vehículo</a>
         </div>
     </div>
     <section style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
@@ -55,7 +25,7 @@
                     <th>Matrícula</th>
                     <th>Marca</th>
                     <th>Modelo</th>
-                    <th>Opciones</th>
+                    <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,11 +34,11 @@
                     <td th:text="${vehiculo.marca}"></td>
                     <td th:text="${vehiculo.modelo}"></td>
 
-                    <td class="opciones">
-                        <a th:href="@{/vehiculo/editar/{id}(id=${vehiculo.id})}" class="icono editar" title="Editar">
+                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"  class="opciones">
+                        <a th:href="@{/admin/vehiculo/editar/{id}(id=${vehiculo.id})}" class="icono editar" title="Editar">
                             ✏️<i class="fas fa-edit"></i>
                         </a>
-                        <a th:href="@{/vehiculo/eliminar/{id}(id=${vehiculo.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                        <a th:href="@{/admin/vehiculo/eliminar/{id}(id=${vehiculo.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
                             ❌
                         </a>
                     </td>

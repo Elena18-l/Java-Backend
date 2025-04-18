@@ -9,31 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <div class="header-left">
-            <div class="logo">
-                <a th:href="@{/}" class="logo-link">Alquiler<br>de Vehículos</a>
-            </div>
-            <nav>
-                <a href="/vehiculo" class="nav-link">Vehículo</a>
-                <a href="/clientes" class="nav-link">Cliente</a>
-                <a href="/alquiler" class="nav-link">Alquiler</a>
-            </nav>
-        </div>
-        <div class="header-right">
-            <span>User</span>
-            <form th:action="@{/logout}" method="post">
-                <button class="logout">Cerrar sesión</button>
-            </form>
-        </div>
-    </div>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 <main style="width: 100%; height: 100%;">
     <div style="width: 100%;">
         <h2 class="franja">Lista de Alquiler</h2>
-        <div class="button-container">
-        <a href="/alquiler/nuevo" class="create-button">Agregar Nuevo Alquiler</a>
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"  class="button-container">
+            <a th:href="@{/admin/alquiler/nuevo}" class="create-button">Agregar Nuevo Alquiler</a>
         </div>
     </div>
     <section style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
@@ -46,7 +27,7 @@
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
                 <th>Precio (€)</th>
-                <th>Acciones</th>
+                <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -57,9 +38,9 @@
                 <td th:text="${alquiler.fechaInicio}"></td>
                 <td th:text="${alquiler.fechaFin}"></td>
                 <td th:text="${#numbers.formatDecimal(alquiler.precio, 1, 2).replace('.', ',')} + ' €'"></td>
-                <td class="opciones">
-                    <a th:href="@{/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">✏️</a>
-                    <a th:href="@{/alquiler/eliminar/{id}(id=${alquiler.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">❌</a>
+                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"  class="opciones">
+                    <a th:href="@{/admin/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">✏️</a>
+                    <a th:href="@{/admin/alquiler/eliminar/{id}(id=${alquiler.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">❌</a>
                 </td>
             </tr>
             </tbody>

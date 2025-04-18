@@ -381,6 +381,25 @@ footer {
     gap: 0.5rem;
 }
 
+
+.login, .register {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.login:hover, .register:hover {
+    background-color: #0056b3;
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
     .header-container {

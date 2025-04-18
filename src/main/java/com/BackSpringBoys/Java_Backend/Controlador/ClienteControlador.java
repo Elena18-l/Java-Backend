@@ -5,6 +5,7 @@ import com.BackSpringBoys.Java_Backend.Exceptions.FechaNacException;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import java.util.Optional;
@@ -22,12 +23,14 @@ public class ClienteControlador {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String listarClientes(Model model) {
         model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
         return "clientes/listaClientes";
     }
 
     @GetMapping("/nuevo")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioAgregarCliente(Model model) {
         Cliente cliente = new Cliente();
         model.addAttribute("cliente", new Cliente());
@@ -35,6 +38,7 @@ public class ClienteControlador {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasRole('ADMIN')")
     public String guardarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "clientes/agregarCliente";
@@ -58,6 +62,7 @@ public class ClienteControlador {
     }
 
     @GetMapping("/eliminar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String eliminarCliente(@PathVariable("id") Long id) {
         try {
             clienteService.eliminarCliente(id);
@@ -68,6 +73,7 @@ public class ClienteControlador {
     }
 
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioEditarCliente(@PathVariable("id") Long id, Model model) {
         try {
             Optional<Cliente> optionalCliente = clienteService.obtenerClientePorId(id);
@@ -84,6 +90,7 @@ public class ClienteControlador {
     }
 
     @PostMapping("/actualizar")
+    @PreAuthorize("hasRole('ADMIN')")
     public String actualizarCliente(@Valid @ModelAttribute Cliente cliente, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "clientes/editarCliente";
@@ -102,4 +109,6 @@ public class ClienteControlador {
         }
         return "redirect:/clientes";
     }
+
+
 }

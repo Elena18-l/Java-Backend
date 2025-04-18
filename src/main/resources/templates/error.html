@@ -15,6 +15,7 @@
         <h1 class="error-title">Ups! Esto no me lo esperaba🤖</h1>
         <p class="error-message">Parece que nuestro robot ha tenido un pequeño fallo. ¡Estamos reparando sus circuitos!</p>
         <button onclick="window.location.href='/'" class="retry-button">Volver a la página principal</button>
+        <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
     </div>
 </div>
 </body>

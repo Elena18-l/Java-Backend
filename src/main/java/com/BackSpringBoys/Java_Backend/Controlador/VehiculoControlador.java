@@ -4,6 +4,7 @@ import com.BackSpringBoys.Java_Backend.Exceptions.MatriculaRegException;
 import com.BackSpringBoys.Java_Backend.Exceptions.MatriculaRepetidaException;
 import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,17 +22,20 @@ public class VehiculoControlador {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String getVehiculos(Model model) {
         model.addAttribute("vehiculos", vehiculoService.obternerTodosLosVehiculos());
         return "vehiculos/listaVehiculos";
     }
 
     @GetMapping("/nuevo")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mostrarFormularioAgregarVehiculo(Model model) {
         model.addAttribute("vehiculo", new Vehiculo());
         return "vehiculos/addVehiculo";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/guardar")
     public String addVehiculo(@ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
         try {
@@ -51,6 +55,7 @@ public class VehiculoControlador {
         return "redirect:/vehiculo";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/eliminar/{id}")
     public String deleteVehiculo(@PathVariable("id") Long id) {
         try{
@@ -60,6 +65,7 @@ public class VehiculoControlador {
             return "redirect:/vehiculo";
         }
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditarVehiculo(@PathVariable Long id, Model model) {
         try{
@@ -75,8 +81,7 @@ public class VehiculoControlador {
         }
     }
 
-
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/actualizar")
     public String actualizarVehiculo(@ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
         try{
