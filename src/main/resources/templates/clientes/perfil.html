@@ -3,25 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>Mi Usuario</title>
-  <link rel="stylesheet" th:href="@{/perfil.css}">
-  <link rel="stylesheet" th:href="@{/style.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div th:replace="~{fragments/header :: header}"></div>
-<div class="container-perfil">
-  <div class="card-perfil">
-    <h2 class="nombre-perfil" th:text="${cliente.nombre}">Nombre del usuario</h2>
-    <p class="email-perfil" th:text="${cliente.email}">email@example.com</p>
-    <p class="fecha-perfil">
-      <strong>Fecha de nacimiento:</strong>
-      <span th:text="${#temporals.format(cliente.fechaNacimiento, 'dd/MM/yyyy')}">01/01/2000</span>
-    </p>
-
-    <div class="acciones-perfil">
-<!-- Si alguien quiere implementar el cambio de contraseña  -->
-<!--      <a th:href="@{/user/perfil/cambiar-password}" class="btn-perfil btn-secundario-perfil">Cambiar contraseña</a>-->
+  <div th:replace="~{fragments/header :: header}"></div>
+  <main>
+    <div style="width: 100%;">
+      <h2 class="franja" th:text="${cliente.username}">Nombre del usuario</h2>
     </div>
-  </div>
-</div>
+    <section style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"
+      <div class="container-perfil">
+        <div class="card-perfil">
+          <p>
+            Nombre:
+            <span class="email-perfil" th:text="${cliente.nombre}">Nombre</span>
+          </p>
+          <p>
+            Apellido:
+            <span class="email-perfil" th:text="${cliente.apellido1 + ' ' + cliente.apellido2}">Apellido</span>
+          </p>
+          <p>
+            Rol:
+            <span class="email-perfil" th:text="${cliente.rol.toString()}">USER</span>
+          </p>
+          <p>
+            Usuario:
+            <span class="email-perfil" th:text="${cliente.username}">usuario</span>
+          </p>
+          <p>
+            Email:
+            <span class="email-perfil" th:text="${cliente.email}">email@example.com</span>
+          </p>
+          <p class="fecha-perfil">
+            Fecha de nacimiento:
+            <span th:text="${#temporals.format(cliente.fechaNacimiento, 'dd/MM/yyyy')}">01/01/2000</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </html>

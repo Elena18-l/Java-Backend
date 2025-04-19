@@ -3,24 +3,97 @@
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            align-items: center;
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+        .log-form{
+            display: flex;
+            flex-direction: column;
+            width: 600px;
+            padding: 1rem;
+            margin: 2rem auto;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2{
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .input-cnt{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .input-cnt label{
+            width: 48%;
+        }
+        label{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        label span{
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        label input{
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .registrar-btn{
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--accent);
+            font-weight: bold;
+            color: var(--light);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .registrar-btn:hover {
+            background-color: var(--accent-dark);
+        }
+        .change-form{
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
 <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main>
+        <div class="login-container">
+            <form class="log-form" th:action="@{/login}" th:object="${cliente}" method="post">
+                <h2>Login</h2>
+                <label>
+                    <span>Usuario:</span>
+                    <input type="text" th:field="*{username}" placeholder="Usuario"/>
+                </label>
+                <label>
+                    <span>Contraseña:</span>
+                    <input type="password" th:field="*{password}" placeholder="Contraseña"/>
+                </label>
 
-<div class="login-wrapper">
-    <h2>Login</h2>
-<form class="login-form" th:action="@{/login}" th:object="${cliente}" method="post">
-    <label>Usuario: <input type="text" th:field="*{username}" placeholder="Usuario"/></label><br/>
-    <label>Contraseña: <input type="password" th:field="*{password}" placeholder="Contraseña"/></label><br/>
+                <a class="change-form" th:href="@{/register}">Crear una cuenta →</a>
 
-    <button type="submit">Login</button>
-
-</form>
-</div>
-<footer>
-    <p>BackSpringBoys - 2025 | <a href="https://fp.uoc.fje.edu/es/estudios" target="_blank">UOC</a></p>
-</footer>
+                <button class="registrar-btn" type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

@@ -3,30 +3,129 @@
 <head>
     <title>Registro</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        .register-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            align-items: center;
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+        .register-form{
+            display: flex;
+            flex-direction: column;
+            width: 600px;
+            padding: 1rem;
+            margin: 2rem auto;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2{
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .input-cnt{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .input-cnt label{
+            width: 48%;
+        }
+        label{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        label span{
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        label input{
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .registrar-btn{
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--accent);
+            font-weight: bold;
+            color: var(--light);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .registrar-btn:hover {
+            background-color: var(--accent-dark);
+        }
+        .change-form{
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main>
+    <div class="register-container">
+        <form th:action="@{/register}" th:object="${cliente}" method="post" class="register-form">
+            <h2>Registro</h2>
+            <div class="input-cnt">
+                <label>
+                    <span>Nombre:</span>
+                    <input type="text" th:field="*{nombre}" class="form-input" />
+                </label>
+                <label>
+                    <span>Primer Apellido:</span>
+                    <input type="text" th:field="*{apellido1}" class="form-input" />
+                </label>
+            </div>
+            <div class="input-cnt">
+                <label>
+                    <span>Segundo Apellido:</span>
+                    <input type="text" th:field="*{apellido2}" class="form-input" />
+                </label>
+                <label>
+                    <span>DNI:</span>
+                    <input type="text" th:field="*{dni}" class="form-input" />
+                </label>
+            </div>
+            <label>
+                <span>Fecha de nacimiento:</span>
+                <input type="date" th:field="*{fechaNacimiento}" class="form-input" />
+            </label>
+            <label>
+                <span>Usuario:</span>
+                <input type="text" th:field="*{username}" placeholder="Usuario" class="form-input" />
+            </label>
+            <label>
+                <span>Email:</span>
+                <input type="email" th:field="*{email}" class="form-input" />
+            </label>
+            <label>
+                <span>Contraseña:</span>
+                <input type="password" th:field="*{password}" class="form-input" />
+            </label>
+            <label>
+                <span>Repetir Contraseña:</span>
+                <input type="password"  />
+            </label>
 
-<div class="login-wrapper">
-    <h2>Crear cuenta</h2>
-    <form class="login-form" th:action="@{/register}" th:object="${cliente}" method="post">
-        <label>Usuario: <input type="text" th:field="*{username}"  placeholder="Usuario" /></label><br/>
-        <label>Contraseña: <input type="password" th:field="*{password}" /></label><br/>
-        <label>Email: <input type="email" th:field="*{email}" /></label><br/>
+            <a class="change-form" th:href="@{/login}">Ya tengo una cuenta</a>
 
-        <label>Nombre: <input type="text" th:field="*{nombre}" /></label><br/>
-        <label>Primer Apellido: <input type="text" th:field="*{apellido1}" /></label><br/>
-        <label>Segundo Apellido: <input type="text" th:field="*{apellido2}" /></label><br/>
-        <label>DNI: <input type="text" th:field="*{dni}" /></label><br/>
-        <label>Fecha de nacimiento: <input type="date" th:field="*{fechaNacimiento}"placeholder="Contraseña" /></label><br/>
-        <button type="submit">Registrarse</button>
-    </form>
-</div>
-<footer>
-    <p>BackSpringBoys - 2025 | <a href="https://fp.uoc.fje.edu/es/estudios" target="_blank">UOC</a></p>
-</footer>
+            <button type="submit" class="registrar-btn">Registrarse</button>
+        </form>
+    </div>
+</main>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

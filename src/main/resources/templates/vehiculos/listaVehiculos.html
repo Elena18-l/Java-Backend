@@ -4,21 +4,21 @@
 <head>
     <title>Lista de Vehículos</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<main style="width: 100%; height: 100%;">
+<main>
     <div style="width: 100%;">
         <h2 class="franja">Lista de Vehículos</h2>
         <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="button-container">
             <a th:href="@{/admin/vehiculo/nuevo}" class="create-button">Añadir vehículo</a>
         </div>
     </div>
-    <section style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+    <section style="width: 100%; display: flex; justify-content: center; align-items: center;">
         <table class="table">
             <thead>
                 <tr>
@@ -47,8 +47,6 @@
         </table>
     </section>
 </main>
-<footer>
-    <p>BackSpringBoys - 2025 - uoc.edu</p>
-</footer>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

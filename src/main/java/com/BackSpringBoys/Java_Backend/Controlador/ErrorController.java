@@ -15,7 +15,7 @@ public class ErrorController {
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public String handleAccessDenied(Exception ex, Model model) {
-        model.addAttribute("errorMessage", ex.getMessage());
+        model.addAttribute("errorMessage","¡Alto ahí! No tienes permiso para entrar en esta zona restringida. 🤖🔒");
         model.addAttribute("errorCode", HttpStatus.FORBIDDEN.value());
         return "error";
     }
@@ -24,7 +24,7 @@ public class ErrorController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String error(Exception ex, Model model) {
-        model.addAttribute("errorMessage", ex.getMessage());
+        model.addAttribute("errorMessage", "Algo explotó dentro del servidor... ¡pero no es mi culpa! 😅💥");
         model.addAttribute("errorCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "error";
     }
@@ -32,7 +32,7 @@ public class ErrorController {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public String handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex, Model model) {
-        model.addAttribute("errorMessage", "Método HTTP no permitido.");
+        model.addAttribute("errorMessage", "Este método no está permitido... pero yo tampoco sé por qué. 🙈🔁");
         model.addAttribute("errorCode", HttpStatus.METHOD_NOT_ALLOWED.value());
         return "error";
     }
@@ -40,7 +40,7 @@ public class ErrorController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleBadRequest(HttpMessageNotReadableException ex, Model model) {
-        model.addAttribute("errorMessage", "Petición malformada.");
+        model.addAttribute("errorMessage", "Tu petición me ha dejado confundido... ¿puedes reformularla? 🤯📦");
         model.addAttribute("errorCode", HttpStatus.BAD_REQUEST.value());
         return "error";
     }
