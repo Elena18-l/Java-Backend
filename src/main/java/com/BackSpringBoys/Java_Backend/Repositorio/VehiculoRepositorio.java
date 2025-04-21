@@ -7,6 +7,6 @@
 
  public interface VehiculoRepositorio extends CrudRepository<Vehiculo, Long> {
      Optional <Vehiculo> findByMatricula (String matricula);
-     Void deleteByMatricula (String matricula);
+     long deleteByMatricula (String matricula);
      boolean existsByMatricula (String matricula);
  }

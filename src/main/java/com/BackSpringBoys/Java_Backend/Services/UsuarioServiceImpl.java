@@ -4,6 +4,8 @@ import com.BackSpringBoys.Java_Backend.Modelo.Usuario;
 import com.BackSpringBoys.Java_Backend.Repositorio.UsuarioRepositorio;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -26,5 +28,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public boolean existsByUsername(String username) {
         return usuarioRepositorio.existsByUsername(username);
+    }
+
+    @Override
+    public Optional<Usuario> findByUsername(String username) {
+        return usuarioRepositorio.findByUsername(username);
     }
 }
