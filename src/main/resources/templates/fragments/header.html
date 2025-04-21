@@ -20,8 +20,6 @@
                 <a th:if="${#authorization.expression('hasRole(''USER'')')}"
                    th:href="@{/user/vehiculo}" class="nav-link">Vehículo</a>
                 <a th:if="${#authorization.expression('hasRole(''USER'')')}"
-                   th:href="@{/user/clientes}" class="nav-link">Cliente</a>
-                <a th:if="${#authorization.expression('hasRole(''USER'')')}"
                    th:href="@{/user/alquiler}" class="nav-link">Alquiler</a>
             </nav>
         </div>

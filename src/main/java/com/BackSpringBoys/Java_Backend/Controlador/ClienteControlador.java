@@ -13,7 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({"user/clientes", "admin/clientes"})
+@RequestMapping({"admin/clientes"})
 public class ClienteControlador {
 
     public ClienteService clienteService;
@@ -23,7 +23,7 @@ public class ClienteControlador {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public String listarClientes(Model model) {
         model.addAttribute("clientes", clienteService.obtenerTodosLosClientes());
         return "clientes/listaClientes";
