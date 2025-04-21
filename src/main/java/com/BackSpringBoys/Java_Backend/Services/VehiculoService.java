@@ -26,9 +26,17 @@ public class VehiculoService {
     }
 
     public Vehiculo guardarVehiculo(Vehiculo vehiculo) {
-        if (this.existeVehiculoPorMatricula(vehiculo.getMatricula())) {
-            throw new MatriculaRepetidaException("La matrícula ya existe");
+        Optional<Vehiculo> existente = vehiculoRepositorio.findByMatricula(vehiculo.getMatricula());
+
+        if (existente.isPresent()) {
+            long idExistente = existente.get().getId();
+            long idActual = vehiculo.getId();
+
+            if (idExistente != idActual) {
+                throw new MatriculaRepetidaException("La matrícula ya existe");
+            }
         }
+
         return vehiculoRepositorio.save(vehiculo);
     }
 
@@ -47,5 +55,4 @@ public class VehiculoService {
     public void eliminarVehiculoPorMatricula(String matricula) {
         vehiculoRepositorio.deleteByMatricula(matricula);
     }
-
 }

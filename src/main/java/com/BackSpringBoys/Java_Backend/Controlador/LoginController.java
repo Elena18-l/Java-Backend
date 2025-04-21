@@ -83,5 +83,18 @@ public class LoginController {
         return "clientes/perfil";
     }
 
+    @GetMapping("/user/perfil/editar")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String editarPerfil(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        Usuario usuario = usuarioService.findByUsername(username).orElse(null);
 
+        if (usuario == null || usuario.getCliente() == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("cliente", usuario.getCliente());
+
+        return "clientes/editPerfil"; // esta es tu vista
+    }
 }

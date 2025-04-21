@@ -85,11 +85,17 @@ public class VehiculoControlador {
     @PostMapping("/actualizar")
     public String actualizarVehiculo(@ModelAttribute Vehiculo vehiculo, BindingResult result, Model model) {
         try{
+            if (!validarMatricula(vehiculo.getMatricula())) {
+                result.rejectValue("matricula", "error.matricula", "La matrícula no es válida");
+                model.addAttribute("vehiculo", vehiculo);
+                return "vehiculos/editVehiculo";
+            }
+
             vehiculoService.guardarVehiculo(vehiculo);
         }catch (IllegalArgumentException e){
             result.rejectValue("matricula", "error.matricula", e.getMessage());
             model.addAttribute("vehiculo", vehiculo);
-            return "vehiculos/addVehiculo";
+            return "vehiculos/editVehiculo";
         }
         return "redirect:/admin/vehiculo";
     }
