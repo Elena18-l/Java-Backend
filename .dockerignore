@@ -1,0 +1,16 @@
+target/
+.git/
+.gitignore
+.idea/
+.vscode/
+node_modules/
+test/
+
+*.iml
+*.log
+*.swp
+.DS_Store
+.env
+*.bak
+*.tmp
+*.temp
