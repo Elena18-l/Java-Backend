@@ -3,10 +3,22 @@
 <head>
   <title>Inicio Usuario</title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-<h1>Bienvenido, <span th:text="${username}">usuario</span> 🎉</h1>
-<p>Esta es tu zona privada.</p>
-<a th:href="@{/logout}">Cerrar sesión</a>
+<div th:replace="~{fragments/header :: header}"></div>
+<main>
+  <section style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 2rem;">
+    <h1>Bienvenido, <span th:text="${username}">usuario</span> 🎉</h1>
+    <p>Esta es tu zona privada.</p>
+
+    <div style="margin-top: 2rem;">
+      <a class="create-button" th:href="@{/user/vehiculo}">Ver Vehículos</a>
+      <a class="create-button" th:href="@{/user/alquiler}">Mis Alquileres</a>
+      <a class="create-button" th:href="@{/user/perfil}">Mi Perfil</a>
+    </div>
+  </section>
+</main>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

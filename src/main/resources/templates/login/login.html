@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
     <style>
         .login-container {
             display: flex;
@@ -17,7 +17,7 @@
             height: 100%;
             background-color: #f0f0f0;
         }
-        .log-form{
+        .log-form {
             display: flex;
             flex-direction: column;
             width: 600px;
@@ -27,34 +27,26 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h2{
+        h2 {
             padding-top: 0;
             margin-top: 0;
         }
-        .input-cnt{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .input-cnt label{
-            width: 48%;
-        }
-        label{
+        label {
             display: flex;
             flex-direction: column;
             margin-bottom: 1rem;
         }
-        label span{
+        label span {
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
-        label input{
+        label input {
             padding: 0.5rem;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
         }
-        .registrar-btn{
+        .registrar-btn {
             padding: 0.5rem;
             border: none;
             border-radius: 5px;
@@ -68,40 +60,58 @@
         .registrar-btn:hover {
             background-color: var(--accent-dark);
         }
-        .change-form{
+        .change-form {
             margin-bottom: 1rem;
+            text-align: right;
+        }
+        .message {
+            margin-bottom: 1rem;
+            font-weight: bold;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        .error {
+            color: #a94442;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+        }
+        .success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
         }
     </style>
 </head>
 <body>
-    <div th:replace="~{fragments/header :: header}"></div>
-    <main>
-        <div class="login-container">
-            <form class="log-form" th:action="@{/login}" method="post">
-                <h2>Login</h2>
-                <div th:if="${param.error}" style="color: red; margin-bottom: 1rem;">
-                    Usuario o contraseña incorrectos.
-                </div>
+<div th:replace="~{fragments/header :: header}"></div>
+<main>
+    <div class="login-container">
+        <form class="log-form" th:action="@{/login}" method="post">
+            <h2>Login</h2>
 
-                <div th:if="${param.logout}" style="color: green; margin-bottom: 1rem;">
-                    Has cerrado sesión correctamente.
-                </div>
-                <label>
-                    <span>Usuario:</span>
-                    <input type="text" name="username" placeholder="Usuario"/>
-                </label>
-                <label>
-                    <span>Contraseña:</span>
-                    <input type="password" name="password" placeholder="Contraseña"/>
-                </label>
+            <div th:if="${param.error}" class="message error">
+                Usuario o contraseña incorrectos.
+            </div>
 
-                <a class="change-form" th:href="@{/register}">Crear una cuenta →</a>
+            <div th:if="${param.logout}" class="message success">
+                Has cerrado sesión correctamente.
+            </div>
 
-                <button class="registrar-btn" type="submit">Login</button>
-            </form>
+            <label>
+                <span>Usuario:</span>
+                <input type="text" name="username" placeholder="Usuario" required />
+            </label>
+            <label>
+                <span>Contraseña:</span>
+                <input type="password" name="password" placeholder="Contraseña" required />
+            </label>
 
-        </div>
-    </main>
-    <div th:replace="~{fragments/footer :: footer}"></div>
+            <a class="change-form" th:href="@{/register}">¿No tienes cuenta? Regístrate →</a>
+
+            <button class="registrar-btn" type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+</main>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

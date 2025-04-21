@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
     <style>
         .register-container {
             display: flex;
@@ -27,34 +27,34 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h2{
+        h2 {
             padding-top: 0;
             margin-top: 0;
         }
-        .input-cnt{
+        .input-cnt {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
         }
-        .input-cnt label{
+        .input-cnt label {
             width: 48%;
         }
-        label{
+        label {
             display: flex;
             flex-direction: column;
             margin-bottom: 1rem;
         }
-        label span{
+        label span {
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
-        label input{
+        label input {
             padding: 0.5rem;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
         }
-        .registrar-btn{
+        .registrar-btn {
             padding: 0.5rem;
             border: none;
             border-radius: 5px;
@@ -68,7 +68,12 @@
         .registrar-btn:hover {
             background-color: var(--accent-dark);
         }
-        .change-form{
+        .change-form {
+            margin-bottom: 1rem;
+        }
+        .error-msg {
+            color: red;
+            font-weight: bold;
             margin-bottom: 1rem;
         }
     </style>
@@ -79,6 +84,8 @@
     <div class="register-container">
         <form th:action="@{/register}" th:object="${cliente}" method="post" class="register-form">
             <h2>Registro</h2>
+
+            <div th:if="${error}" class="error-msg" th:text="${error}"></div>
 
             <!-- Cliente -->
             <div class="input-cnt">
@@ -106,18 +113,18 @@
                 <input type="date" th:field="*{fechaNacimiento}" required />
             </label>
 
-            <!-- Usuario -->
+            <!-- Usuario (usamos name en lugar de th:field porque no forma parte de Cliente) -->
             <label>
                 <span>Usuario:</span>
-                <input type="text" th:field="*{username}" placeholder="Usuario" required />
+                <input type="text" name="username" placeholder="Usuario" required />
             </label>
             <label>
                 <span>Email:</span>
-                <input type="email" th:field="*{email}" required />
+                <input type="email" name="email" required />
             </label>
             <label>
                 <span>Contraseña:</span>
-                <input type="password" th:field="*{password}" required />
+                <input type="password" name="password" required />
             </label>
             <label>
                 <span>Repetir Contraseña:</span>
