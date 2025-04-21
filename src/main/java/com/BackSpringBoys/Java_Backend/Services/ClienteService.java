@@ -4,7 +4,9 @@ import com.BackSpringBoys.Java_Backend.Exceptions.DniDuplicadoException;
 import com.BackSpringBoys.Java_Backend.Exceptions.EmailDuplicadoException;
 import com.BackSpringBoys.Java_Backend.Exceptions.FechaNacException;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Modelo.Usuario;
 import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
+import com.BackSpringBoys.Java_Backend.Repositorio.UsuarioRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,10 +18,12 @@ public class ClienteService {
 
     private final ClienteRepositorio clienteRepositorio;
     private final UsuarioService usuarioService;
+    private final UsuarioRepositorio usuarioRepositorio;
 
-    public ClienteService(ClienteRepositorio clienteRepositorio, UsuarioService usuarioService) {
+    public ClienteService(ClienteRepositorio clienteRepositorio, UsuarioService usuarioService, UsuarioRepositorio usuarioRepositorio) {
         this.clienteRepositorio = clienteRepositorio;
         this.usuarioService = usuarioService;
+        this.usuarioRepositorio = usuarioRepositorio;
     }
 
     public Iterable<Cliente> obtenerTodosLosClientes() {
@@ -33,7 +37,6 @@ public class ClienteService {
     public Cliente guardarCliente(Cliente cliente) {
         System.out.println("empieza a guardar");
 
-        // Validación de mayoría de edad
         if (cliente.getFechaNacimiento() != null) {
             LocalDate fechaNacimiento = cliente.getFechaNacimiento();
             LocalDate fechaActual = LocalDate.now();
@@ -45,7 +48,6 @@ public class ClienteService {
 
         System.out.println("la fecha está bien");
 
-        // Validar DNI duplicado (solo si ha cambiado)
         Optional<Cliente> existente = clienteRepositorio.findById(cliente.getId());
         if (existente.isPresent()) {
             if (!existente.get().getDni().equals(cliente.getDni()) && existsByDni(cliente.getDni())) {
@@ -57,7 +59,6 @@ public class ClienteService {
             }
         }
 
-        // Validar email y username duplicado solo si es nuevo
         if (cliente.getUsuario() != null && cliente.getUsuario().getId() == null) {
             if (usuarioService.existsByEmail(cliente.getUsuario().getEmail())) {
                 throw new EmailDuplicadoException("El email ya está registrado.");
@@ -72,7 +73,19 @@ public class ClienteService {
     }
 
     public void eliminarCliente(Long id) {
-        clienteRepositorio.deleteById(id);
+        Optional<Cliente> clienteOpt = clienteRepositorio.findById(id);
+        if (clienteOpt.isPresent()) {
+            Cliente cliente = clienteOpt.get();
+            Usuario usuario = cliente.getUsuario();
+
+            if (usuario != null) {
+                cliente.setUsuario(null);
+                clienteRepositorio.save(cliente); // Desvincula primero
+                usuarioRepositorio.delete(usuario); // Luego elimina el usuario
+            }
+
+            clienteRepositorio.delete(cliente); // Finalmente elimina el cliente
+        }
     }
 
     public boolean existsByDni(String dni) {
