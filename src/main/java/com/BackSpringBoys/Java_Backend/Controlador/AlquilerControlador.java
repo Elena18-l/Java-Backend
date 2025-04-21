@@ -2,11 +2,16 @@ package com.BackSpringBoys.Java_Backend.Controlador;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Modelo.Usuario;
 import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
+import com.BackSpringBoys.Java_Backend.Repositorio.AlquilerRepositorio;
 import com.BackSpringBoys.Java_Backend.Services.AlquilerService;
 import com.BackSpringBoys.Java_Backend.Services.ClienteService;
+import com.BackSpringBoys.Java_Backend.Services.UsuarioService;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
@@ -16,6 +21,7 @@ import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,12 +30,16 @@ public class AlquilerControlador {
 
     private final VehiculoService vehiculoService;
     private final ClienteService clienteService;
+    private final UsuarioService usuarioService;
+    private final AlquilerRepositorio alquilerRepositorio;
     public AlquilerService alquilerService;
 
-    public AlquilerControlador(AlquilerService alquilerService, VehiculoService vehiculoService, ClienteService clienteService) {
+    public AlquilerControlador(AlquilerService alquilerService, VehiculoService vehiculoService, ClienteService clienteService, UsuarioService usuarioService, AlquilerRepositorio alquilerRepositorio) {
         this.alquilerService = alquilerService;
         this.vehiculoService = vehiculoService;
         this.clienteService = clienteService;
+        this.usuarioService = usuarioService;
+        this.alquilerRepositorio = alquilerRepositorio;
     }
 
     /* debug alquiler
@@ -41,9 +51,28 @@ public class AlquilerControlador {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String listarAlquiler(Model model) {
+    public String listarAlquiler(@AuthenticationPrincipal User user, Model model) {
         System.out.println("Intentando cargar lista de alquileres...");
+
         var alquileres = alquilerService.obtenerTodosLosAlquileres();
+        if (user.getAuthorities() != null && user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            System.out.println("Usuario autenticado: " + user.getUsername());
+            Optional<Usuario> usuario = usuarioService.findByUsername(user.getUsername());
+            if (usuario.isPresent()) {
+                Cliente cli = usuario.get().getCliente();
+                List<Alquiler> alquilerList = alquilerRepositorio.findByCliente(cli);
+                if (alquilerList.isEmpty()) {
+                    System.out.println("No hay alquileres para el cliente: " + cli.getNombre());
+                } else {
+                    alquileres = alquilerList;
+                }
+            } else {
+                System.out.println("Usuario no encontrado.");
+            }
+        } else if(user.getAuthorities() != null && user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            System.out.println("Usuario autenticado: " + user.getUsername());
+            alquileres = alquilerService.obtenerTodosLosAlquileres();
+        }
         alquileres.forEach(a -> System.out.println(a));
 
         model.addAttribute("alquileres", alquileres);
