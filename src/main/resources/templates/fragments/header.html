@@ -23,6 +23,8 @@
                    th:href="@{/user/alquiler}" class="nav-link">Alquiler</a>
                 <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
                    th:href="@{/admin/dashboard}" class="nav-link">Panel Admin</a>
+                <a th:if="${#authorization.expression('hasRole(''USER'')')}"
+                   th:href="@{/user/home}" class="nav-link">Panel Usuario</a>
             </nav>
         </div>
 

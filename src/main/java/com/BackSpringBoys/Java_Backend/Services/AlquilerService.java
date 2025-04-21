@@ -41,4 +41,8 @@ public class AlquilerService {
     public List<Alquiler> findByVehiculo(Vehiculo vehiculo){
         return alquilerRepositorio.findByVehiculo(vehiculo);
     }
+
+    public List<Alquiler> obtenerAlquileresPorCliente(Cliente cliente) {
+        return alquilerRepositorio.findByCliente(cliente);
+    }
 }
