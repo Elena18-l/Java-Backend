@@ -9,7 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 public class LoginController {
 
@@ -35,9 +37,36 @@ public class LoginController {
         return "redirect:/user/clientes";
     }
 
+    @PostMapping("/user/perfil")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String postPerfil(
+            @ModelAttribute("cliente") Cliente clienteModificado,
+            Authentication authentication
+    ) {
+        String username = authentication.getName();
+        Usuario usuario = usuarioService.findByUsername(username).orElse(null);
+
+        if (usuario == null) return "redirect:/login";
+
+        Cliente cliente = usuario.getCliente();
+        cliente.setNombre(clienteModificado.getNombre());
+        cliente.setApellido1(clienteModificado.getApellido1());
+        cliente.setApellido2(clienteModificado.getApellido2());
+        cliente.setDni(clienteModificado.getDni());
+        cliente.setFechaNacimiento(clienteModificado.getFechaNacimiento());
+
+        usuario.setUsername(clienteModificado.getUsuario().getUsername());
+        usuario.setEmail(clienteModificado.getUsuario().getEmail());
+
+        usuarioService.guardarUsuario(usuario);
+
+        return "redirect:/user/perfil?success=true";
+    }
     @GetMapping("/user/perfil")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public String getPerfil(Model model, Authentication authentication) {
+    public String getPerfil(@RequestParam(value = "success", required = false) String success,
+                            Model model,
+                            Authentication authentication) {
         String username = authentication.getName();
 
         Usuario usuario = usuarioService.findByUsername(username).orElse(null);
@@ -46,6 +75,13 @@ public class LoginController {
         }
 
         model.addAttribute("cliente", usuario.getCliente());
+
+        if ("true".equals(success)) {
+            model.addAttribute("mensajeExito", "Perfil actualizado correctamente.");
+        }
+
         return "clientes/perfil";
     }
+
+
 }

@@ -37,7 +37,8 @@ public class Cliente {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaNacimiento;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "cliente")
+    // cascade = CascadeType.ALL
     private Usuario usuario;
 
     // Constructores

@@ -20,7 +20,7 @@ public class JavaBackendApplication {
 	}
 
 	@Bean
-	public CommandLineRunner crearAdmin(UsuarioRepositorio usuarioRepo, ClienteRepositorio clienteRepo) {
+	public CommandLineRunner crearAdminYUser(UsuarioRepositorio usuarioRepo, ClienteRepositorio clienteRepo) {
 		return args -> {
 			if (!usuarioRepo.existsByUsername("admin")) {
 				Cliente adminCliente = new Cliente();
@@ -28,7 +28,7 @@ public class JavaBackendApplication {
 				adminCliente.setNombre("Admin");
 				adminCliente.setApellido1("Sistema");
 				adminCliente.setFechaNacimiento(LocalDate.of(1990, 1, 1));
-				clienteRepo.save(adminCliente);
+				adminCliente = clienteRepo.save(adminCliente);
 
 				Usuario admin = new Usuario();
 				admin.setUsername("admin");
@@ -38,6 +38,24 @@ public class JavaBackendApplication {
 				admin.setCliente(adminCliente);
 				usuarioRepo.save(admin);
 			}
+
+			if (!usuarioRepo.existsByUsername("user")) {
+				Cliente userCliente = new Cliente();
+				userCliente.setDni("11111111B");
+				userCliente.setNombre("Usuario");
+				userCliente.setApellido1("Normal");
+				userCliente.setFechaNacimiento(LocalDate.of(1995, 5, 5));
+				userCliente = clienteRepo.save(userCliente);
+
+				Usuario user = new Usuario();
+				user.setUsername("user");
+				user.setPassword(new BCryptPasswordEncoder().encode("user123"));
+				user.setEmail("user@example.com");
+				user.setRol("USER");
+				user.setCliente(userCliente);
+				usuarioRepo.save(user);
+			}
 		};
 	}
+
 }

@@ -8,6 +8,5 @@ public interface UsuarioService {
     void guardarUsuario(Usuario usuario);
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);
-
     Optional<Usuario> findByUsername(String username);
 }

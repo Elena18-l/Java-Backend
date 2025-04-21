@@ -23,6 +23,7 @@ public class Usuario {
     private boolean enabled = true;
 
     @OneToOne(optional = false)
+    // cascade = CascadeType.ALL
     @JoinColumn(name = "cliente_id", nullable = false, unique = true)
     private Cliente cliente;
 
