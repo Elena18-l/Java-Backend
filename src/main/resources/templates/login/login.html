@@ -77,21 +77,29 @@
     <div th:replace="~{fragments/header :: header}"></div>
     <main>
         <div class="login-container">
-            <form class="log-form" th:action="@{/login}" th:object="${cliente}" method="post">
+            <form class="log-form" th:action="@{/login}" method="post">
                 <h2>Login</h2>
+                <div th:if="${param.error}" style="color: red; margin-bottom: 1rem;">
+                    Usuario o contraseña incorrectos.
+                </div>
+
+                <div th:if="${param.logout}" style="color: green; margin-bottom: 1rem;">
+                    Has cerrado sesión correctamente.
+                </div>
                 <label>
                     <span>Usuario:</span>
-                    <input type="text" th:field="*{username}" placeholder="Usuario"/>
+                    <input type="text" name="username" placeholder="Usuario"/>
                 </label>
                 <label>
                     <span>Contraseña:</span>
-                    <input type="password" th:field="*{password}" placeholder="Contraseña"/>
+                    <input type="password" name="password" placeholder="Contraseña"/>
                 </label>
 
                 <a class="change-form" th:href="@{/register}">Crear una cuenta →</a>
 
                 <button class="registrar-btn" type="submit">Login</button>
             </form>
+
         </div>
     </main>
     <div th:replace="~{fragments/footer :: footer}"></div>

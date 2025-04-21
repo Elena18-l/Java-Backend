@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Entity
-public class Cliente  {
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -37,21 +37,10 @@ public class Cliente  {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate fechaNacimiento;
 
-    @Column(name = "email", nullable = false, unique = true)
-    @Email(message = "El correo electrónico no es válido")
-    @NotBlank(message = "El correo electrónico es obligatorio")
-    @Size(max = 100, message = "El correo electrónico no puede superar los 100 caracteres")
-    private String email;
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private Usuario usuario;
 
-    @Column(unique = true, nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
-
+    // Constructores
     public Cliente() {}
 
     public Cliente(long id, String dni, String nombre, String apellido1, String apellido2, LocalDate fechaNacimiento) {
@@ -78,77 +67,27 @@ public class Cliente  {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public long getId() {
-        return id;
-    }
+    // Getters y setters
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public String getDni() { return dni; }
+    public void setDni(String dni) { this.dni = dni; }
 
-    public String getDni() {
-        return dni;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+    public String getApellido1() { return apellido1; }
+    public void setApellido1(String apellido1) { this.apellido1 = apellido1; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getApellido2() { return apellido2; }
+    public void setApellido2(String apellido2) { this.apellido2 = apellido2; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public LocalDate getFechaNacimiento() { return fechaNacimiento; }
+    public void setFechaNacimiento(LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
 
-    public String getApellido1() {
-        return apellido1;
-    }
-
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
-    }
-
-    public String getApellido2() {
-        return apellido2;
-    }
-
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
-    }
-
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    //esto seria la class USER
-
-    public String getUsername() { return username; }
-
-    public void setUsername(String username) { this.username = username; }
-
-    public String getPassword() { return password; }
-
-    public void setPassword(String password) { this.password = password; }
-
-    public String getEmail() { return email; }
-
-    public void setEmail(String email) { this.email = email; }
-
-    public Rol getRol() { return rol; }
-
-    public void setRol(Rol rol) { this.rol = rol; }
-
-//    @Override
-//    public String toString() {
-//        return "Cliente " + id + "- DNI:'" + dni + '\'' + ", Nombre Completo:'" + nombre + ' ' + apellido1 + ' ' + apellido2 + ".\n";
-//    }
-
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
     @Override
     public String toString() {
@@ -159,10 +98,6 @@ public class Cliente  {
                 ", apellido1='" + apellido1 + '\'' +
                 ", apellido2='" + apellido2 + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", rol=" + rol +
                 '}';
     }
 }

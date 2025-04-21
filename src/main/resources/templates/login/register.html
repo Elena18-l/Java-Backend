@@ -79,45 +79,49 @@
     <div class="register-container">
         <form th:action="@{/register}" th:object="${cliente}" method="post" class="register-form">
             <h2>Registro</h2>
+
+            <!-- Cliente -->
             <div class="input-cnt">
                 <label>
                     <span>Nombre:</span>
-                    <input type="text" th:field="*{nombre}" class="form-input" />
+                    <input type="text" th:field="*{nombre}" required />
                 </label>
                 <label>
                     <span>Primer Apellido:</span>
-                    <input type="text" th:field="*{apellido1}" class="form-input" />
+                    <input type="text" th:field="*{apellido1}" required />
                 </label>
             </div>
             <div class="input-cnt">
                 <label>
                     <span>Segundo Apellido:</span>
-                    <input type="text" th:field="*{apellido2}" class="form-input" />
+                    <input type="text" th:field="*{apellido2}" />
                 </label>
                 <label>
                     <span>DNI:</span>
-                    <input type="text" th:field="*{dni}" class="form-input" />
+                    <input type="text" th:field="*{dni}" required />
                 </label>
             </div>
             <label>
                 <span>Fecha de nacimiento:</span>
-                <input type="date" th:field="*{fechaNacimiento}" class="form-input" />
+                <input type="date" th:field="*{fechaNacimiento}" required />
             </label>
+
+            <!-- Usuario -->
             <label>
                 <span>Usuario:</span>
-                <input type="text" th:field="*{username}" placeholder="Usuario" class="form-input" />
+                <input type="text" th:field="*{username}" placeholder="Usuario" required />
             </label>
             <label>
                 <span>Email:</span>
-                <input type="email" th:field="*{email}" class="form-input" />
+                <input type="email" th:field="*{email}" required />
             </label>
             <label>
                 <span>Contraseña:</span>
-                <input type="password" th:field="*{password}" class="form-input" />
+                <input type="password" th:field="*{password}" required />
             </label>
             <label>
                 <span>Repetir Contraseña:</span>
-                <input type="password"  />
+                <input type="password" name="repassword" required />
             </label>
 
             <a class="change-form" th:href="@{/login}">Ya tengo una cuenta</a>
