@@ -30,7 +30,7 @@
 
         <div class="header-right">
             <div sec:authorize="isAuthenticated()" style="display: flex; flex-direction: row;">
-                <a th:href="@{/perfil}" th:text="${#authentication.name}" style="text-align: center; justify-self: center; align-self: center; color: var(--light);">Usuario</a>
+                <a th:href="@{/user/perfil}" th:text="${#authentication.name}" style="text-align: center; justify-self: center; align-self: center; color: var(--light);">Usuario</a>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="login">Cerrar sesión</button>
                 </form>
