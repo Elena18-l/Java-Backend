@@ -1,4 +1,3 @@
-// UsuarioRepositorio.java
 package com.BackSpringBoys.Java_Backend.Repositorio;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Usuario;
@@ -8,6 +7,8 @@ import java.util.Optional;
 
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByUsername(String username);
+    Optional<Usuario> findByEmail(String email);
+
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);
 }

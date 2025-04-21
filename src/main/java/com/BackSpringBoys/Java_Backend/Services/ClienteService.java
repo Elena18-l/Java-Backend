@@ -33,12 +33,11 @@ public class ClienteService {
     public Cliente guardarCliente(Cliente cliente) {
         System.out.println("empieza a guardar");
 
+        // Validación de mayoría de edad
         if (cliente.getFechaNacimiento() != null) {
             LocalDate fechaNacimiento = cliente.getFechaNacimiento();
             LocalDate fechaActual = LocalDate.now();
-
             Period edad = Period.between(fechaNacimiento, fechaActual);
-
             if (edad.getYears() < 18) {
                 throw new FechaNacException("El cliente debe ser mayor de 18 años.");
             }
@@ -46,19 +45,27 @@ public class ClienteService {
 
         System.out.println("la fecha está bien");
 
-        if (this.existsByDni(cliente.getDni())) {
-            System.out.println("el dni ya existe");
-            throw new DniDuplicadoException("El DNI ya está registrado.");
+        // Validar DNI duplicado (solo si ha cambiado)
+        Optional<Cliente> existente = clienteRepositorio.findById(cliente.getId());
+        if (existente.isPresent()) {
+            if (!existente.get().getDni().equals(cliente.getDni()) && existsByDni(cliente.getDni())) {
+                throw new DniDuplicadoException("El DNI ya está registrado.");
+            }
+        } else {
+            if (existsByDni(cliente.getDni())) {
+                throw new DniDuplicadoException("El DNI ya está registrado.");
+            }
         }
 
-        if (usuarioService.existsByEmail(cliente.getUsuario().getEmail())) {
-            System.out.println("el email ya existe");
-            throw new EmailDuplicadoException("El email ya está registrado.");
-        }
+        // Validar email y username duplicado solo si es nuevo
+        if (cliente.getUsuario() != null && cliente.getUsuario().getId() == null) {
+            if (usuarioService.existsByEmail(cliente.getUsuario().getEmail())) {
+                throw new EmailDuplicadoException("El email ya está registrado.");
+            }
 
-        if (usuarioService.existsByUsername(cliente.getUsuario().getUsername())) {
-            System.out.println("el username ya existe");
-            throw new EmailDuplicadoException("El username ya está registrado.");
+            if (usuarioService.existsByUsername(cliente.getUsuario().getUsername())) {
+                throw new EmailDuplicadoException("El username ya está registrado.");
+            }
         }
 
         return clienteRepositorio.save(cliente);

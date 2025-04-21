@@ -60,7 +60,7 @@ public class VehiculoControlador {
     public String deleteVehiculo(@PathVariable("id") Long id) {
         try{
             vehiculoService.eliminarVehiculo(id);
-            return "redirect:/vehiculo";
+            return "redirect:/admin/vehiculo";
         }catch (IllegalArgumentException e){
             return "redirect:/admin/vehiculo";
         }
