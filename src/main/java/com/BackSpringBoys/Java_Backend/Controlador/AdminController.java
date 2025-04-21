@@ -1,66 +1,19 @@
-package com.BackSpringBoys.Java_Backend.Config;
+package com.BackSpringBoys.Java_Backend.Controlador;
 
-import com.BackSpringBoys.Java_Backend.Security.UsuarioDetailsServiceImpl;
-import com.BackSpringBoys.Java_Backend.Security.CustomAuthenticationSuccessHandler;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@Configuration
-@EnableMethodSecurity
-public class SecurityConfig {
+@Controller
+public class AdminController {
 
-    private final UsuarioDetailsServiceImpl usuarioDetailsService;
-    private final CustomAuthenticationSuccessHandler successHandler;
-
-    public SecurityConfig(UsuarioDetailsServiceImpl usuarioDetailsService, CustomAuthenticationSuccessHandler successHandler) {
-        this.usuarioDetailsService = usuarioDetailsService;
-        this.successHandler = successHandler;
-    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register").permitAll()
-                        .requestMatchers("/css/**", "/img/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .successHandler(successHandler)  // 💥 Aquí usamos el handler personalizado
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
-                );
-
-        return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authBuilder
-                .userDetailsService(usuarioDetailsService)
-                .passwordEncoder(passwordEncoder());
-        return authBuilder.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @GetMapping("/admin/dashboard")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminDashboard(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("username", user.getUsername());
+        return "admin/dashboard"; // Asegúrate de tener esta plantilla HTML
     }
 }

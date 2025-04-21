@@ -1,22 +1,22 @@
 package com.BackSpringBoys.Java_Backend.Controlador;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
-import com.BackSpringBoys.Java_Backend.Services.ClienteService;
+import com.BackSpringBoys.Java_Backend.Modelo.Usuario;
+import com.BackSpringBoys.Java_Backend.Services.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
 
-    private final ClienteService clienteService;
+    private final UsuarioService usuarioService;
 
-    public LoginController(ClienteService clienteService) {
-        this.clienteService = clienteService;
+    public LoginController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping("/login")
@@ -35,17 +35,17 @@ public class LoginController {
         return "redirect:/user/clientes";
     }
 
-    @GetMapping("user/perfil")
+    @GetMapping("/user/perfil")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public String getPerfil(Model model, Authentication authentication) {
         String username = authentication.getName();
-        Cliente cliente = clienteService.findByUsername(username).orElse(null);
 
-        if(cliente == null) {
+        Usuario usuario = usuarioService.findByUsername(username).orElse(null);
+        if (usuario == null || usuario.getCliente() == null) {
             return "redirect:/login";
         }
 
-        model.addAttribute("cliente", cliente);
+        model.addAttribute("cliente", usuario.getCliente());
         return "clientes/perfil";
     }
 }

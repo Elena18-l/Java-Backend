@@ -7,7 +7,6 @@ import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
 import org.springframework.stereotype.Service;
 
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
@@ -16,20 +15,24 @@ import java.util.Optional;
 public class ClienteService {
 
     private final ClienteRepositorio clienteRepositorio;
-    public ClienteService(ClienteRepositorio clienteRepositorio) {
-         this.clienteRepositorio = clienteRepositorio;
-     }
+    private final UsuarioService usuarioService;
+
+    public ClienteService(ClienteRepositorio clienteRepositorio, UsuarioService usuarioService) {
+        this.clienteRepositorio = clienteRepositorio;
+        this.usuarioService = usuarioService;
+    }
 
     public Iterable<Cliente> obtenerTodosLosClientes() {
-         return clienteRepositorio.findAll();
-     }
+        return clienteRepositorio.findAll();
+    }
 
     public Optional<Cliente> obtenerClientePorId(Long id) {
-         return clienteRepositorio.findById(id);
-     }
+        return clienteRepositorio.findById(id);
+    }
 
     public Cliente guardarCliente(Cliente cliente) {
         System.out.println("empieza a guardar");
+
         if (cliente.getFechaNacimiento() != null) {
             LocalDate fechaNacimiento = cliente.getFechaNacimiento();
             LocalDate fechaActual = LocalDate.now();
@@ -40,41 +43,32 @@ public class ClienteService {
                 throw new FechaNacException("El cliente debe ser mayor de 18 años.");
             }
         }
-        System.out.println("la fecha esta bien");
+
+        System.out.println("la fecha está bien");
 
         if (this.existsByDni(cliente.getDni())) {
             System.out.println("el dni ya existe");
             throw new DniDuplicadoException("El DNI ya está registrado.");
-
         }
-        if (this.existsByEmail(cliente.getEmail())) {
+
+        if (usuarioService.existsByEmail(cliente.getUsuario().getEmail())) {
             System.out.println("el email ya existe");
             throw new EmailDuplicadoException("El email ya está registrado.");
         }
-        if (this.existsByUsername(cliente.getUsername())) {
+
+        if (usuarioService.existsByUsername(cliente.getUsuario().getUsername())) {
             System.out.println("el username ya existe");
-            throw new EmailDuplicadoException("El username ya está registrado."); //Ya son muchas exepctions 💔
+            throw new EmailDuplicadoException("El username ya está registrado.");
         }
+
         return clienteRepositorio.save(cliente);
     }
 
     public void eliminarCliente(Long id) {
-         clienteRepositorio.deleteById(id);
+        clienteRepositorio.deleteById(id);
     }
 
     public boolean existsByDni(String dni) {
         return clienteRepositorio.existsByDni(dni);
-    }
-
-    public boolean existsByEmail(String email) {
-        return clienteRepositorio.existsByEmail(email);
-    }
-
-    public boolean existsByUsername(String username) {
-        return clienteRepositorio.existsByUsername(username);
-    }
-
-    public Optional<Cliente> findByUsername(String username) {
-        return clienteRepositorio.findByUsername(username);
     }
 }
