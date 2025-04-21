@@ -39,7 +39,7 @@
                     <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="opciones">
                         <a th:href="@{/admin/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">✏️</a>
 
-                        <a th:href="@{/admin/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este vehículo?');">
+                        <a th:href="@{/admin/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este cliente?');">
                             ❌
                         </a>
                     </td>

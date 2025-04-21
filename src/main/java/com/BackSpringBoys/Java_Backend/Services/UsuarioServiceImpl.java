@@ -33,12 +33,24 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public boolean existsByEmail(String email) {
-        return usuarioRepositorio.existsByEmail(email);
+        Optional<Usuario> usuario = usuarioRepositorio.findByEmail(email);
+        return usuario.isPresent();
     }
 
     @Override
     public boolean existsByUsername(String username) {
-        return usuarioRepositorio.existsByUsername(username);
+        Optional<Usuario> usuario = usuarioRepositorio.findByUsername(username);
+        return usuario.isPresent();
+    }
+
+    public boolean emailEnUsoPorOtro(String email, Long usuarioId) {
+        Optional<Usuario> usuario = usuarioRepositorio.findByEmail(email);
+        return usuario.isPresent() && !usuario.get().getId().equals(usuarioId);
+    }
+
+    public boolean usernameEnUsoPorOtro(String username, Long usuarioId) {
+        Optional<Usuario> usuario = usuarioRepositorio.findByUsername(username);
+        return usuario.isPresent() && !usuario.get().getId().equals(usuarioId);
     }
 
     @Override

@@ -21,12 +21,14 @@
                    th:href="@{/user/vehiculo}" class="nav-link">Vehículo</a>
                 <a th:if="${#authorization.expression('hasRole(''USER'')')}"
                    th:href="@{/user/alquiler}" class="nav-link">Alquiler</a>
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{/admin/dashboard}" class="nav-link">Panel Admin</a>
             </nav>
         </div>
 
         <div class="header-right">
             <div sec:authorize="isAuthenticated()" style="display: flex; flex-direction: row;">
-                <a th:href="@{/user/perfil}" th:text="${#authentication.name}" style="text-align: center; justify-self: center; align-self: center; color: var(--light);">Usuario</a>
+                <a th:href="@{/perfil}" th:text="${#authentication.name}" style="text-align: center; justify-self: center; align-self: center; color: var(--light);">Usuario</a>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="login">Cerrar sesión</button>
                 </form>
