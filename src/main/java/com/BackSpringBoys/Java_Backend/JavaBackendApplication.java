@@ -18,7 +18,6 @@ public class JavaBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JavaBackendApplication.class, args);
 	}
-
 	@Bean
 	public CommandLineRunner crearAdminYUser(UsuarioRepositorio usuarioRepo, ClienteRepositorio clienteRepo) {
 		return args -> {
@@ -28,14 +27,17 @@ public class JavaBackendApplication {
 				adminCliente.setNombre("Admin");
 				adminCliente.setApellido1("Sistema");
 				adminCliente.setFechaNacimiento(LocalDate.of(1990, 1, 1));
-				adminCliente = clienteRepo.save(adminCliente);
 
 				Usuario admin = new Usuario();
 				admin.setUsername("admin");
 				admin.setPassword(new BCryptPasswordEncoder().encode("admin123"));
 				admin.setEmail("admin@example.com");
 				admin.setRol("ADMIN");
-				admin.setCliente(adminCliente);
+				admin.setEnabled(true);
+
+				admin.setCliente(adminCliente); // También setea adminCliente.setUsuario(this)
+
+				adminCliente.setUsuario(admin);
 				usuarioRepo.save(admin);
 			}
 
@@ -45,17 +47,21 @@ public class JavaBackendApplication {
 				userCliente.setNombre("Usuario");
 				userCliente.setApellido1("Normal");
 				userCliente.setFechaNacimiento(LocalDate.of(1995, 5, 5));
-				userCliente = clienteRepo.save(userCliente);
 
 				Usuario user = new Usuario();
 				user.setUsername("user");
 				user.setPassword(new BCryptPasswordEncoder().encode("user123"));
 				user.setEmail("user@example.com");
 				user.setRol("USER");
+				user.setEnabled(true);
+
+				userCliente.setUsuario(user);
 				user.setCliente(userCliente);
+
 				usuarioRepo.save(user);
 			}
 		};
 	}
+
 
 }

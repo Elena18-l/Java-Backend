@@ -38,7 +38,6 @@ public class Cliente {
     private LocalDate fechaNacimiento;
 
     @OneToOne(mappedBy = "cliente")
-    // cascade = CascadeType.ALL
     private Usuario usuario;
 
     // Constructores
