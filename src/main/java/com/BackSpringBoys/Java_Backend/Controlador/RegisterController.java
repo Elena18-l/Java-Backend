@@ -62,6 +62,6 @@ public class RegisterController {
         cliente.setUsuario(usuario); // bidireccional
 
         usuarioService.guardarUsuario(usuario);
-        return "redirect:/";
+        return "redirect:/?registerSuccess";
     }
 }
