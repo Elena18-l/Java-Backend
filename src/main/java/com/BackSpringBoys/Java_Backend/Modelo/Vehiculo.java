@@ -9,7 +9,6 @@ public class Vehiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // TODO regex aqui o en controller??
     @NotNull(message = "La matrícula es obligatoria")
     @Column(nullable = false, unique = true, length = 7)
     private String matricula;

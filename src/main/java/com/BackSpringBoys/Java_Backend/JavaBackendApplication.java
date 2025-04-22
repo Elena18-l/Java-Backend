@@ -2,8 +2,12 @@ package com.BackSpringBoys.Java_Backend;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Modelo.Usuario;
+import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
+import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
 import com.BackSpringBoys.Java_Backend.Repositorio.ClienteRepositorio;
 import com.BackSpringBoys.Java_Backend.Repositorio.UsuarioRepositorio;
+import com.BackSpringBoys.Java_Backend.Repositorio.VehiculoRepositorio;
+import com.BackSpringBoys.Java_Backend.Repositorio.AlquilerRepositorio;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,10 +23,17 @@ public class JavaBackendApplication {
 		SpringApplication.run(JavaBackendApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner crearAdminYUser(UsuarioRepositorio usuarioRepo, ClienteRepositorio clienteRepo) {
+	public CommandLineRunner crearAdminYUser(
+			UsuarioRepositorio usuarioRepo,
+			ClienteRepositorio clienteRepo,
+			VehiculoRepositorio vehiculoRepo,
+			AlquilerRepositorio alquilerRepo
+	) {
 		return args -> {
+			// Crear ADMIN
+			Cliente adminCliente;
 			if (!usuarioRepo.existsByUsername("admin")) {
-				Cliente adminCliente = new Cliente();
+				adminCliente = new Cliente();
 				adminCliente.setDni("00000000A");
 				adminCliente.setNombre("Admin");
 				adminCliente.setApellido1("Sistema");
@@ -35,14 +46,18 @@ public class JavaBackendApplication {
 				admin.setRol("ADMIN");
 				admin.setEnabled(true);
 
-				admin.setCliente(adminCliente); // También setea adminCliente.setUsuario(this)
-
+				admin.setCliente(adminCliente);
 				adminCliente.setUsuario(admin);
+
 				usuarioRepo.save(admin);
+			} else {
+				adminCliente = usuarioRepo.findByUsername("admin").get().getCliente();
 			}
 
+			// Crear USER
+			Cliente userCliente;
 			if (!usuarioRepo.existsByUsername("user")) {
-				Cliente userCliente = new Cliente();
+				userCliente = new Cliente();
 				userCliente.setDni("11111111B");
 				userCliente.setNombre("Usuario");
 				userCliente.setApellido1("Normal");
@@ -55,13 +70,43 @@ public class JavaBackendApplication {
 				user.setRol("USER");
 				user.setEnabled(true);
 
-				userCliente.setUsuario(user);
 				user.setCliente(userCliente);
+				userCliente.setUsuario(user);
 
 				usuarioRepo.save(user);
+			} else {
+				userCliente = usuarioRepo.findByUsername("user").get().getCliente();
+			}
+
+			// Crear Vehículos si no existen
+			Vehiculo vehiculoAdmin = vehiculoRepo.findByMatricula("0000AAA")
+					.orElseGet(() -> vehiculoRepo.save(new Vehiculo("0000AAA", "Passat", "Volkswagen")));
+
+			Vehiculo vehiculoUser = vehiculoRepo.findByMatricula("1111BBB")
+					.orElseGet(() -> vehiculoRepo.save(new Vehiculo("1111BBB", "Civic", "Honda")));
+
+			// Crear Alquileres si no existen
+			if (!alquilerRepo.findByCliente(adminCliente).isEmpty() && !alquilerRepo.findByCliente(userCliente).isEmpty()) {
+				return;
+			}
+
+			if (alquilerRepo.count() == 0) {
+				alquilerRepo.save(new Alquiler(
+						LocalDate.now().plusDays(1),
+						LocalDate.now().plusDays(7),
+						vehiculoAdmin,
+						adminCliente,
+						250.0
+				));
+
+				alquilerRepo.save(new Alquiler(
+						LocalDate.now().plusDays(2),
+						LocalDate.now().plusDays(5),
+						vehiculoUser,
+						userCliente,
+						180.0
+				));
 			}
 		};
 	}
-
-
 }
