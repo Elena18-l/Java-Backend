@@ -3,14 +3,14 @@
 <head>
   <title>Panel de Administrador</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <main>
   <section style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 2rem;">
     <h1 style="margin-bottom: 1rem;">Panel de administrador</h1>
-    <p>Bienvenido, <span th:text="${username}">admin</span> 👑</p>
+    <p>Bienvenido, <span th:text="${username}">admin</span>!</p>
 
     <div style="margin-top: 2rem;">
       <a class="create-button" th:href="@{/admin/vehiculo}">Gestión de Vehículos</a>

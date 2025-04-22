@@ -4,29 +4,81 @@
 <head>
     <title>Inicio</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        .home-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5rem;
+            padding: 4rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .home-main img {
+            width: 300px;
+            height: auto;
+        }
+
+        .home-form-wrapper {
+            min-width: 350px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .home-form-wrapper .log-form {
+            margin: 0;
+        }
+
+        .home-form-wrapper .create-button {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .home-main {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<main>
-    <div class="login-wrapper">
-        <div class="car-image">
-            <img src="/img/logo.png" alt="Logo coche" />
+
+<main class="home-main">
+    <img src="/img/logo.png" alt="Logo coche"/>
+
+    <div class="home-form-wrapper">
+        <div sec:authorize="isAnonymous()">
+            <form th:action="@{/login}" method="post" class="log-form">
+                <div th:if="${param.error}" class="message error">Usuario o contraseña incorrectos.</div>
+                <div th:if="${param.logout}" class="message success">Has cerrado sesión correctamente.</div>
+
+                <label>
+                    <span>Usuario:</span>
+                    <input type="text" name="username" placeholder="Usuario" required />
+                </label>
+
+                <label>
+                    <span>Contraseña:</span>
+                    <input type="password" name="password" placeholder="Contraseña" required />
+                </label>
+
+                <a class="change-form" th:href="@{/register}">¿No tienes cuenta? Regístrate →</a>
+                <button class="registrar-btn" type="submit">Iniciar sesión</button>
+            </form>
         </div>
-        <div class="cta-cnt">
-            <h1 class="cta-title">Alquiler de Vehículos</h1>
-            <div class="home-action-cnt">
-                <a th:href="@{/login}" class="register-link">Iniciar sesión</a>
-                <a th:href="@{/register}" class="register-link">Crear una cuenta</a>
-            </div>
+
+        <div sec:authorize="isAuthenticated()" style="text-align: center;">
+            <h2 th:text="'Bienvenido, ' + ${#authentication.name} + '!'"></h2>
+            <a th:href="@{/user/perfil}" class="create-button">Ir a mi perfil</a>
         </div>
     </div>
 </main>
-    <footer>
-        <p>BackSpringBoys - 2025 | <a href="https://fp.uoc.fje.edu/es/estudios" target="_blank">UOC</a></p>
-    </footer>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

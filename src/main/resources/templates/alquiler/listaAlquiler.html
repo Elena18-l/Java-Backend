@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista alquileres</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -12,7 +12,9 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <main>
     <div style="width: 100%;">
-        <h2 class="franja">Lista de Alquiler</h2>
+        <div class="franja">
+            <h2>Lista de Alquiler</h2>
+        </div>
         <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"  class="button-container">
             <a th:href="@{/admin/alquiler/nuevo}" class="create-button">Agregar Nuevo Alquiler</a>
         </div>
@@ -35,8 +37,8 @@
                 <td th:text="${alquiler.id}"></td>
                 <td th:text="${alquiler.vehiculo != null ? alquiler.vehiculo.marca + ' ' + alquiler.vehiculo.modelo + ' (' + alquiler.vehiculo.matricula + ')' : 'Vehículo no disponible'}"></td>
                 <td th:text="${alquiler.cliente != null ? alquiler.cliente.nombre + ' (' + alquiler.cliente.dni + ')' : 'Cliente no disponible'}"></td>
-                <td th:text="${alquiler.fechaInicio}"></td>
-                <td th:text="${alquiler.fechaFin}"></td>
+                <td th:text="${#temporals.format(alquiler.fechaInicio, 'dd/MM/yyyy')}"></td>
+                <td th:text="${#temporals.format(alquiler.fechaFin, 'dd/MM/yyyy')}"></td>
                 <td th:text="${#numbers.formatDecimal(alquiler.precio, 1, 2).replace('.', ',')} + ' €'"></td>
                 <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"  class="opciones">
                     <a th:href="@{/admin/alquiler/editar/{id}(id=${alquiler.id})}" class="icono editar" title="Editar">✏️</a>

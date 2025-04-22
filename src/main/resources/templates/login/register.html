@@ -1,142 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <title>Registro</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
-    <style>
-        .register-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 100%;
-            align-items: center;
-            height: 100%;
-            background-color: #f0f0f0;
-        }
-        .register-form{
-            display: flex;
-            flex-direction: column;
-            width: 600px;
-            padding: 1rem;
-            margin: 2rem auto;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            padding-top: 0;
-            margin-top: 0;
-        }
-        .input-cnt {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .input-cnt label {
-            width: 48%;
-        }
-        label {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
-        }
-        label span {
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        label input {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        .registrar-btn {
-            padding: 0.5rem;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--accent);
-            font-weight: bold;
-            color: var(--light);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .registrar-btn:hover {
-            background-color: var(--accent-dark);
-        }
-        .change-form {
-            margin-bottom: 1rem;
-        }
-        .error-msg {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-    </style>
+    <title>Registro</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<main>
-    <div class="register-container">
-        <form th:action="@{/register}" th:object="${cliente}" method="post" class="register-form">
-            <h2>Registro</h2>
+
+<main style="min-height: calc(100vh - 160px); padding-bottom: 2rem;">
+    <div class="franja">
+        <h2>Registro</h2>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin-top: 2rem; margin-bottom: 3rem;">
+        <form th:action="@{/register}" th:object="${cliente}" method="post" class="formCustom">
 
             <div th:if="${error}" class="error-msg" th:text="${error}"></div>
 
-            <!-- Cliente -->
-            <div class="input-cnt">
-                <label>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <label style="flex: 1;">
                     <span>Nombre:</span>
                     <input type="text" th:field="*{nombre}" required />
                 </label>
-                <label>
+                <label style="flex: 1;">
                     <span>Primer Apellido:</span>
                     <input type="text" th:field="*{apellido1}" required />
                 </label>
             </div>
-            <div class="input-cnt">
-                <label>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <label style="flex: 1;">
                     <span>Segundo Apellido:</span>
                     <input type="text" th:field="*{apellido2}" />
                 </label>
-                <label>
+                <label style="flex: 1;">
                     <span>DNI:</span>
                     <input type="text" th:field="*{dni}" required />
                 </label>
             </div>
+
             <label>
                 <span>Fecha de nacimiento:</span>
                 <input type="date" th:field="*{fechaNacimiento}" required />
             </label>
 
-            <!-- Usuario (usamos name en lugar de th:field porque no forma parte de Cliente) -->
             <label>
                 <span>Usuario:</span>
                 <input type="text" name="username" placeholder="Usuario" required />
             </label>
+
             <label>
                 <span>Email:</span>
                 <input type="email" name="email" required />
             </label>
+
             <label>
                 <span>Contraseña:</span>
                 <input type="password" name="password" required />
             </label>
+
             <label>
                 <span>Repetir Contraseña:</span>
                 <input type="password" name="repassword" required />
             </label>
 
-            <a class="change-form" th:href="@{/login}">Ya tengo una cuenta</a>
+            <div style="text-align: center;">
+                <a class="create-button" th:href="@{/}">Ya tengo una cuenta</a>
+            </div>
 
-            <button type="submit" class="registrar-btn">Registrarse</button>
+            <button type="submit">Registrarse</button>
         </form>
     </div>
 </main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

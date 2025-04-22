@@ -54,30 +54,28 @@ public class AlquilerControlador {
     public String listarAlquiler(@AuthenticationPrincipal User user, Model model) {
         System.out.println("Intentando cargar lista de alquileres...");
 
-        var alquileres = alquilerService.obtenerTodosLosAlquileres();
+        var alquileres = alquilerService.obtenerTodosLosAlquileres(); // <-- aquí estás cargando todo siempre
+
         if (user.getAuthorities() != null && user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
             System.out.println("Usuario autenticado: " + user.getUsername());
             Optional<Usuario> usuario = usuarioService.findByUsername(user.getUsername());
             if (usuario.isPresent()) {
                 Cliente cli = usuario.get().getCliente();
-                List<Alquiler> alquilerList = alquilerRepositorio.findByCliente(cli);
-                if (alquilerList.isEmpty()) {
-                    System.out.println("No hay alquileres para el cliente: " + cli.getNombre());
-                } else {
-                    alquileres = alquilerList;
-                }
+                alquileres = alquilerService.obtenerAlquileresPorCliente(cli); // << ESTA línea debe usarse para ROLE_USER
             } else {
                 System.out.println("Usuario no encontrado.");
+                alquileres = List.of(); // si no encuentra, lista vacía por seguridad
             }
         } else if(user.getAuthorities() != null && user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
             System.out.println("Usuario autenticado: " + user.getUsername());
             alquileres = alquilerService.obtenerTodosLosAlquileres();
         }
-        alquileres.forEach(a -> System.out.println(a));
 
+        alquileres.forEach(a -> System.out.println(a));
         model.addAttribute("alquileres", alquileres);
         return "alquiler/listaAlquiler";
     }
+
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

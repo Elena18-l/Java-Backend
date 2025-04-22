@@ -29,15 +29,15 @@
         </div>
 
         <div class="header-right">
-            <div sec:authorize="isAuthenticated()" style="display: flex; flex-direction: row;">
+            <div th:if="${#authorization.expr('isAuthenticated()')}" style="display: flex; flex-direction: row;">
                 <a th:href="@{/user/perfil}" th:text="${#authentication.name}" style="text-align: center; justify-self: center; align-self: center; color: var(--light);">Usuario</a>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="login">Cerrar sesión</button>
                 </form>
             </div>
 
-            <div sec:authorize="isAnonymous()">
-                <a th:href="@{/login}" class="login">Iniciar sesión</a>
+            <div th:if="${#authorization.expr('isAnonymous()')}">
+                <a th:href="@{/}" class="login">Iniciar sesión</a>
                 <a th:href="@{/register}" class="register">Registrarse</a>
             </div>
         </div>

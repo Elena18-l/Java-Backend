@@ -3,41 +3,50 @@
 <head>
     <title>Agregar Cliente</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2 class="franja">Agregar Nuevo Cliente</h2>
+<div th:replace="~{fragments/header :: header}"></div>
 
-<form class="formCustom" th:action="@{/admin/clientes/guardar}" th:object="${cliente}" method="post">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required>
-    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color: red;"></span>
+<main>
+    <div class="franja">
+        <h2>Agregar Nuevo Cliente</h2>
+    </div>
 
+    <div style="display: flex; justify-content: center;">
+        <form th:action="@{/admin/clientes/guardar}" th:object="${cliente}" method="post" class="formCustom">
 
-    <label for="apellido1">Primer Apellido:</label>
-    <input type="text" id="apellido1" name="apellido1" th:field="*{apellido1}" required>
-    <span th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}" style="color: red;"></span>
+            <label for="nombre"><span>Nombre:</span></label>
+            <input type="text" id="nombre" th:field="*{nombre}" required />
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" style="color: red;"></span>
 
-    <label for="apellido2">Segundo Apellido (opcional):</label>
-    <input type="text" id="apellido2" name="apellido2" th:field="*{apellido2}">
-    <span th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}" style="color: red;"></span>
+            <label for="apellido1"><span>Primer Apellido:</span></label>
+            <input type="text" id="apellido1" th:field="*{apellido1}" required />
+            <span th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}" style="color: red;"></span>
 
-    <label for="dni">DNI:</label>
-    <input type="text" id="dni" name="dni" th:field="*{dni}" required>
-    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" style="color: red;"></span>
+            <label for="apellido2"><span>Segundo Apellido (opcional):</span></label>
+            <input type="text" id="apellido2" th:field="*{apellido2}" />
+            <span th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}" style="color: red;"></span>
 
-    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-    <input type="date" id="fechaNacimiento" name="fechaNacimiento" th:field="*{fechaNacimiento}" required>
-    <span th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" style="color: red;"></span>
+            <label for="dni"><span>DNI:</span></label>
+            <input type="text" id="dni" th:field="*{dni}" required />
+            <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" style="color: red;"></span>
 
-    <button type="submit">Guardar</button>
-</form>
+            <label for="fechaNacimiento"><span>Fecha de Nacimiento:</span></label>
+            <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" required />
+            <span th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" style="color: red;"></span>
 
-<div class="button-container">
-    <a th:href="@{/admin/clientes}" class="create-button">Volver a la lista de Clientes</a>
-</div>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <button type="submit">Guardar</button>
+                <a th:href="@{/admin/clientes}" class="create-button">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

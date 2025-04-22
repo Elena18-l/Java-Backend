@@ -2,39 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Editar Vehículo</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2 class="franja">Editar Vehículo</h2>
+<div th:replace="~{fragments/header :: header}"></div>
 
-<form class="formCustom" th:action="@{/admin/vehiculo/actualizar}" th:object="${vehiculo}" method="post">
-    <input type="hidden" th:field="*{id}" />
+<main>
+    <div class="franja">
+        <h2>Editar Vehículo</h2>
+    </div>
 
+    <div style="display: flex; justify-content: center;">
+        <form th:action="@{/admin/vehiculo/actualizar}" th:object="${vehiculo}" method="post" class="formCustom">
+            <input type="hidden" th:field="*{id}" />
 
-    <label>Matrícula:</label>
-    <input type="text" th:field="*{matricula}" required/>
-    <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}" style="color: red;"></span>
+            <label for="matricula"><span>Matrícula:</span></label>
+            <input type="text" id="matricula" th:field="*{matricula}" required />
+            <span th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}" style="color: red;"></span>
 
-    <label>Marca:</label>
-    <input type="text" th:field="*{marca}" required/>
-    <span th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" style="color: red;"></span>
+            <label for="marca"><span>Marca:</span></label>
+            <input type="text" id="marca" th:field="*{marca}" required />
+            <span th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" style="color: red;"></span>
 
-    <label>Modelo:</label>
-    <input type="text" th:field="*{modelo}" required/>
-    <span th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}" style="color: red;"></span>
+            <label for="modelo"><span>Modelo:</span></label>
+            <input type="text" id="modelo" th:field="*{modelo}" required />
+            <span th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}" style="color: red;"></span>
 
-    <!--
-    <label>Foto (URL):</label>
-    <input type="text" th:field="*{foto}" /> -->
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                <button type="submit">Guardar cambios</button>
+                <a th:href="@{/admin/vehiculo}" class="create-button">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</main>
 
-    <button type="submit">Guardar cambios</button>
-</form>
-
-<div class="button-container">
-    <a th:href="@{../}" class="create-button">Volver a la lista de Vehículos</a>
-</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

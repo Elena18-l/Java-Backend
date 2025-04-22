@@ -12,38 +12,39 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <main>
     <div style="width: 100%;">
-        <h2 class="franja">Lista de Clientes</h2>
+        <div class="franja">
+            <h2>Lista de Clientes</h2>
+        </div>
         <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="button-container">
-            <a th:href="@{/admin/clientes/nuevo}" class="create-button">Añadir cliente</a>
+            <a th:href="@{/admin/clientes/nuevo}" class="create-button">Añadir Cliente</a>
         </div>
     </div>
+
     <section style="width: 100%; display: flex; justify-content: center; align-items: center;">
         <table class="table">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>DNI</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Acciones</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Primer Apellido</th>
+                <th>DNI</th>
+                <th>Fecha de Nacimiento</th>
+                <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Acciones</th>
+            </tr>
             </thead>
             <tbody>
-                <tr th:each="cliente : ${clientes}">
-                    <td th:text="${cliente.id}"></td>
-                    <td th:text="${cliente.nombre}"></td>
-                    <td th:text="${cliente.apellido1}"></td>
-                    <td th:text="${cliente.dni}"></td>
-                    <td th:text="${cliente.fechaNacimiento}"></td>
-                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="opciones">
-                        <a th:href="@{/admin/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">✏️</a>
-
-                        <a th:href="@{/admin/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar este cliente?');">
-                            ❌
-                        </a>
-                    </td>
-                </tr>
+            <tr th:each="cliente : ${clientes}">
+                <td th:text="${cliente.id}"></td>
+                <td th:text="${cliente.nombre}"></td>
+                <td th:text="${cliente.apellido1}"></td>
+                <td th:text="${cliente.dni}"></td>
+                <td th:text="${#temporals.format(cliente.fechaNacimiento, 'dd/MM/yyyy')}"></td>
+                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="opciones">
+                    <a th:href="@{/admin/clientes/editar/{id}(id=${cliente.id})}" class="icono editar" title="Editar">✏️</a>
+                    <a th:href="@{/admin/clientes/eliminar/{id}(id=${cliente.id})}" class="icono eliminar" title="Eliminar"
+                       onclick="return confirm('¿Seguro que quieres eliminar este cliente?');">❌</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </section>

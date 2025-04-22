@@ -22,10 +22,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             String role = auth.getAuthority();
 
             if (role.equals("ROLE_ADMIN")) {
-                response.sendRedirect("/admin/dashboard"); // cambia si tu ruta es distinta
+                response.sendRedirect("/admin/dashboard");
                 return;
             } else if (role.equals("ROLE_USER")) {
-                response.sendRedirect("/user/home"); // cambia si tu ruta es distinta
+                response.sendRedirect("/");
                 return;
             }
         }
