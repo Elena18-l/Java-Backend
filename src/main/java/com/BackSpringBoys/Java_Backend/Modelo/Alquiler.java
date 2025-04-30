@@ -1,5 +1,6 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,11 +27,13 @@ public class Alquiler {
     @ManyToOne
     @JoinColumn(name = "id_vehiculo")
     @NotNull(message = "Debe seleccionar un vehículo")
+    @JsonBackReference
     private Vehiculo vehiculo;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     @NotNull(message = "Debe seleccionar un cliente")
+    @JsonBackReference
     private Cliente cliente;
 
     @Min(value = 0, message = "El precio debe ser mayor o igual a 0")

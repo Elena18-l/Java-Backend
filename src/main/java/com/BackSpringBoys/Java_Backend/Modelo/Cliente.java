@@ -1,5 +1,6 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,6 +39,7 @@ public class Cliente {
     private LocalDate fechaNacimiento;
 
     @OneToOne(mappedBy = "cliente")
+    @JsonBackReference
     private Usuario usuario;
 
     // Constructores

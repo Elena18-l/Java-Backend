@@ -1,5 +1,7 @@
 package com.BackSpringBoys.Java_Backend.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -25,6 +27,7 @@ public class Usuario {
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     // cascade = CascadeType.ALL
     @JoinColumn(name = "cliente_id", nullable = false, unique = true)
+    @JsonManagedReference
     private Cliente cliente;
 
     // Getters & Setters
