@@ -1,5 +1,6 @@
 package com.BackSpringBoys.Java_Backend.Config;
 
+import com.BackSpringBoys.Java_Backend.Security.JwtAuthenticationFilter;
 import com.BackSpringBoys.Java_Backend.Security.UsuarioDetailsServiceImpl;
 import com.BackSpringBoys.Java_Backend.Security.CustomAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
@@ -8,9 +9,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -18,10 +21,14 @@ public class SecurityConfig {
 
     private final UsuarioDetailsServiceImpl usuarioDetailsService;
     private final CustomAuthenticationSuccessHandler successHandler;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(UsuarioDetailsServiceImpl usuarioDetailsService, CustomAuthenticationSuccessHandler successHandler) {
+    public SecurityConfig(UsuarioDetailsServiceImpl usuarioDetailsService,
+                          CustomAuthenticationSuccessHandler successHandler,
+                          JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.usuarioDetailsService = usuarioDetailsService;
         this.successHandler = successHandler;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
@@ -32,8 +39,13 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/img/**", "/js/**", "/fonts/**", "/webjars/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/secure/**").authenticated()
                         .anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/auth/**")
                 )
                 .formLogin(form -> form
                         .loginPage("/")
@@ -48,7 +60,8 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
-                );
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -1,4 +1,4 @@
-package com.BackSpringBoys.Java_Backend.Api;
+package com.BackSpringBoys.Java_Backend.Controlador;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
 import com.BackSpringBoys.Java_Backend.Modelo.AlquilerDTO;
