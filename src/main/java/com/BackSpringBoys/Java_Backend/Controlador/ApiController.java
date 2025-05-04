@@ -1,10 +1,15 @@
 package com.BackSpringBoys.Java_Backend.Controlador;
 
 import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
-import com.BackSpringBoys.Java_Backend.Modelo.AlquilerDTO;
+import com.BackSpringBoys.Java_Backend.Modelo.Dto.AlquilerDTO;
+import com.BackSpringBoys.Java_Backend.Modelo.Dto.VehiculoDTO;
 import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 import com.BackSpringBoys.Java_Backend.Services.AlquilerService;
 import com.BackSpringBoys.Java_Backend.Services.VehiculoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,51 +27,56 @@ public class ApiController {
         this.alquilerService = alquilerService;
     }
 
+    @Operation(summary = "Obtener todos los alquileres")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de alquileres"),
+            @ApiResponse(responseCode = "204", description = "No hay alquileres disponibles"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/alquileres")
-    public List<AlquilerDTO> getAllAlquileres() {
+    public ResponseEntity<List<AlquilerDTO>> getAllAlquileres() {
         try{
-            System.out.println('1');
             Iterable<Alquiler> alquileres = alquilerService.obtenerTodosLosAlquileres();
-            System.out.println('2');
             List<AlquilerDTO> alquilerList = new ArrayList<>();
-            System.out.println('3');
             if(alquileres != null) {
-                System.out.println('4');
-//                alquileres.forEach(alquiler -> alquilerList.add(new AlquilerDTO(alquiler)));
-                alquileres.forEach(alquiler -> {
-                    AlquilerDTO dto = new AlquilerDTO(alquiler);
-                    System.out.println(dto); // Asegúrate de que AlquilerDTO tenga implementado toString()
-                    alquilerList.add(dto);
-                });
-                System.out.println('5');
-            } else {
-                System.out.println('6');
-                System.out.println("No hay alquileres disponibles");
+                alquileres.forEach(alquiler -> alquilerList.add( new AlquilerDTO(alquiler)));
             }
-            System.out.println('7');
-            return alquilerList;
+
+            if(alquilerList.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(alquilerList);
         } catch (Exception e) {
-            System.out.println('8');
             System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
-        System.out.println('9');
-        return null;
     }
 
+
+    @Operation(summary = "Obtener todos los vehiculos")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de vehiculos"),
+            @ApiResponse(responseCode = "204", description = "No hay vehiculos disponibles"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/vehiculos")
-    public List<Vehiculo> getAllVehiculos() {
+    public ResponseEntity<List<VehiculoDTO>> getAllVehiculos() {
         try{
             Iterable<Vehiculo> vehiculos = vehiculoService.obternerTodosLosVehiculos();
-            List<Vehiculo> vehiculosList = new ArrayList<>();
+            List<VehiculoDTO> vehiculosList = new ArrayList<>();
             if(vehiculos != null) {
-                vehiculos.forEach(vehiculosList::add);
+                vehiculos.forEach(vehiculo -> vehiculosList.add(new VehiculoDTO(vehiculo)));
             } else {
                 System.out.println("No hay vehiculos disponibles");
             }
-            return vehiculosList;
+
+            if(vehiculosList.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(vehiculosList);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
-            return null;
     }
 }

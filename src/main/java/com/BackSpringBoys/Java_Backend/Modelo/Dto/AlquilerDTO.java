@@ -1,4 +1,8 @@
-package com.BackSpringBoys.Java_Backend.Modelo;
+package com.BackSpringBoys.Java_Backend.Modelo.Dto;
+
+import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
+import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
+import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
 
 import java.time.LocalDate;
 
