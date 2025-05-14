@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class AlquilerService {
-    private AlquilerRepositorio alquilerRepositorio;
+    private final AlquilerRepositorio alquilerRepositorio;
 
     public AlquilerService(AlquilerRepositorio alquilerRepositorio) {
         this.alquilerRepositorio = alquilerRepositorio;
