@@ -46,3 +46,4 @@ public class AlquilerService {
         return alquilerRepositorio.findByCliente(cliente);
     }
 }
+

@@ -1,7 +1,14 @@
 package com.BackSpringBoys.Java_Backend.Modelo.Auth;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Credenciales de acceso")
 public class AuthRequest {
+
+    @Schema(description = "Nombre de usuario", example = "admin")
     private String username;
+
+    @Schema(description = "Contraseña del usuario", example = "password123")
     private String password;
 
     public AuthRequest() {

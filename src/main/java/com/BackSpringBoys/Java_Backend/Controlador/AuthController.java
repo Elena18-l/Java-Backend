@@ -3,6 +3,11 @@ package com.BackSpringBoys.Java_Backend.Controlador;
 import com.BackSpringBoys.Java_Backend.Modelo.Auth.AuthRequest;
 import com.BackSpringBoys.Java_Backend.Modelo.Auth.AuthResponse;
 import com.BackSpringBoys.Java_Backend.Security.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,8 +30,22 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
+    @Operation(
+            summary = "Autenticación de usuario",
+            description = "Permite autenticar un usuario con sus credenciales y devuelve un token JWT si son válidas"
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Autenticación exitosa, se devuelve el token JWT",
+                    content = @Content(schema = @Schema(implementation = AuthResponse.class))),
+            @ApiResponse(responseCode = "401", description = "Credenciales inválidas",
+                    content = @Content(schema = @Schema(example = "{\"error\": \"Credenciales inválidas\"}")))
+    })
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> login(@RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Credenciales del usuario",
+            required = true,
+            content = @Content(schema = @Schema(implementation = AuthRequest.class))
+    ) AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authRequest.getUsername(), authRequest.getPassword()

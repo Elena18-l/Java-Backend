@@ -3,19 +3,27 @@ package com.BackSpringBoys.Java_Backend.Modelo.Dto;
 import com.BackSpringBoys.Java_Backend.Modelo.Alquiler;
 import com.BackSpringBoys.Java_Backend.Modelo.Cliente;
 import com.BackSpringBoys.Java_Backend.Modelo.Vehiculo;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 import java.time.LocalDate;
 
+@Schema(description = "Información básica de un alquiler")
 public class AlquilerDTO {
 
+    @Schema(description = "Fecha de inicio del alquiler", example = "2025-05-20")
     private LocalDate fechaInicio;
 
+    @Schema(description = "Fecha de fin del alquiler", example = "2025-05-25")
     private LocalDate fechaFin;
 
+    @Schema(description = "Matrícula del vehículo alquilado", example = "1234ABC")
     private String vehiculo;
 
+    @Schema(description = "Nombre completo del cliente", example = "Juan Pérez")
     private String cliente;
 
+    @Schema(description = "ID único del alquiler", example = "15")
     private long id;
 
     public AlquilerDTO() { }

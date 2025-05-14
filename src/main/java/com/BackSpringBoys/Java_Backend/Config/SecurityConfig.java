@@ -5,6 +5,7 @@ import com.BackSpringBoys.Java_Backend.Security.UsuarioDetailsServiceImpl;
 import com.BackSpringBoys.Java_Backend.Security.CustomAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -38,14 +39,15 @@ public class SecurityConfig {
                         .requestMatchers("/", "/register", "/login", "/error").permitAll()
                         .requestMatchers("/css/**", "/img/**", "/js/**", "/fonts/**", "/webjars/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/secure/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/secure/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/auth/**")
+                        .ignoringRequestMatchers("/auth/**", "/api/**")
                 )
                 .formLogin(form -> form
                         .loginPage("/")
